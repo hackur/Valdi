@@ -35,7 +35,7 @@
 
 import { StatefulComponent } from 'valdi_core/src/Component';
 import { Style } from 'valdi_core/src/Style';
-import { AnimationCurve, PresetCurveAnimationOptions } from 'valdi_core/src/Animation';
+import { AnimationCurve, PresetCurveAnimationOptions } from 'valdi_core/src/AnimationOptions';
 import { NavigationController } from 'valdi_navigation/src/NavigationController';
 import { NavigationPage } from 'valdi_navigation/src/NavigationPage';
 import { GeometricPathBuilder } from 'valdi_core/src/GeometricPath';
@@ -235,7 +235,7 @@ export class ShapesDemo extends StatefulComponent<ShapesDemoViewModel, ShapesDem
                     <label
                       value={`Stroke Width: ${this.state.strokeWidth}px`}
                       font={Fonts.body}
-                      color={Colors.text}
+                      color={Colors.textPrimary}
                     />
                     <layout flexDirection="row" flexWrap="wrap">
                       {[1, 2, 4, 8, 12].map((width) => (
@@ -249,7 +249,7 @@ export class ShapesDemo extends StatefulComponent<ShapesDemoViewModel, ShapesDem
                       ))}
                     </layout>
 
-                    <label value="Stroke Cap" font={Fonts.body} color={Colors.text} />
+                    <label value="Stroke Cap" font={Fonts.body} color={Colors.textPrimary} />
                     <layout flexDirection="row" flexWrap="wrap">
                       {['butt', 'round', 'square'].map((cap) => (
                         <Button
@@ -262,7 +262,7 @@ export class ShapesDemo extends StatefulComponent<ShapesDemoViewModel, ShapesDem
                       ))}
                     </layout>
 
-                    <label value="Stroke Join" font={Fonts.body} color={Colors.text} />
+                    <label value="Stroke Join" font={Fonts.body} color={Colors.textPrimary} />
                     <layout flexDirection="row" flexWrap="wrap">
                       {['bevel', 'miter', 'round'].map((join) => (
                         <Button
@@ -332,7 +332,7 @@ export class ShapesDemo extends StatefulComponent<ShapesDemoViewModel, ShapesDem
                     <label
                       value={`Arc Angle: ${this.toDegrees(this.state.arcAngle).toFixed(0)}°`}
                       font={Fonts.body}
-                      color={Colors.text}
+                      color={Colors.textPrimary}
                     />
                     <layout flexDirection="row" flexWrap="wrap">
                       {[90, 180, 270, 360].map((degrees) => {
@@ -361,7 +361,7 @@ export class ShapesDemo extends StatefulComponent<ShapesDemoViewModel, ShapesDem
           >
             <Card>
               <layout width="100%">
-                <label value="Animated Checkmark" font={Fonts.body} color={Colors.text} />
+                <label value="Animated Checkmark" font={Fonts.body} color={Colors.textPrimary} />
                 <view
                   width="100%"
                   height={150}
@@ -411,7 +411,7 @@ export class ShapesDemo extends StatefulComponent<ShapesDemoViewModel, ShapesDem
                   color={Colors.textSecondary}
                 />
 
-                <label value="Animated Loader" font={Fonts.body} color={Colors.text} />
+                <label value="Animated Loader" font={Fonts.body} color={Colors.textPrimary} />
                 <view
                   width="100%"
                   height={100}

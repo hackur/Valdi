@@ -44,7 +44,7 @@
 
 import { StatefulComponent } from 'valdi_core/src/Component';
 import { Style } from 'valdi_core/src/Style';
-import { AnimationCurve, PresetCurveAnimationOptions } from 'valdi_core/src/Animation';
+import { AnimationCurve, PresetCurveAnimationOptions } from 'valdi_core/src/AnimationOptions';
 import { NavigationController } from 'valdi_navigation/src/NavigationController';
 import { NavigationPage } from 'valdi_navigation/src/NavigationPage';
 import {
@@ -163,7 +163,7 @@ export class GesturesDemo extends StatefulComponent<GesturesDemoViewModel, Gestu
                   <label
                     value={this.state.touchActive ? 'Touching!' : 'Touch Here'}
                     font={Fonts.h2}
-                    color={this.state.touchActive ? Colors.white : Colors.text}
+                    color={this.state.touchActive ? Colors.white : Colors.textPrimary}
                   />
 
                   {/* Touch position indicator */}
@@ -191,17 +191,17 @@ export class GesturesDemo extends StatefulComponent<GesturesDemoViewModel, Gestu
                   <label
                     value={`State: ${this.state.touchState}`}
                     font={Fonts.body}
-                    color={Colors.text}
+                    color={Colors.textPrimary}
                   />
                   <label
                     value={`Pointers: ${this.state.pointerCount}`}
                     font={Fonts.body}
-                    color={Colors.text}
+                    color={Colors.textPrimary}
                   />
                   <label
                     value={`Position: (${this.state.touchPosition.x.toFixed(0)}, ${this.state.touchPosition.y.toFixed(0)})`}
                     font={Fonts.body}
-                    color={Colors.text}
+                    color={Colors.textPrimary}
                   />
                   {this.state.longPressActive && (
                     <label
@@ -260,12 +260,12 @@ export class GesturesDemo extends StatefulComponent<GesturesDemoViewModel, Gestu
                   <label
                     value={`Delta: (${this.state.dragDelta.x.toFixed(0)}, ${this.state.dragDelta.y.toFixed(0)}) px`}
                     font={Fonts.body}
-                    color={Colors.text}
+                    color={Colors.textPrimary}
                   />
                   <label
                     value={`Velocity: (${this.state.dragVelocity.x.toFixed(0)}, ${this.state.dragVelocity.y.toFixed(0)}) px/s`}
                     font={Fonts.body}
-                    color={Colors.text}
+                    color={Colors.textPrimary}
                   />
                 </view>
 
@@ -331,7 +331,7 @@ export class GesturesDemo extends StatefulComponent<GesturesDemoViewModel, Gestu
                   <label
                     value={`Scale: ${this.state.scale.toFixed(2)}x`}
                     font={Fonts.body}
-                    color={Colors.text}
+                    color={Colors.textPrimary}
                   />
                   <label
                     value={`Range: ${this.state.minScale}x - ${this.state.maxScale}x`}
@@ -398,7 +398,7 @@ export class GesturesDemo extends StatefulComponent<GesturesDemoViewModel, Gestu
                   <label
                     value={`Rotation: ${this.toDegrees(this.state.rotation).toFixed(1)}°`}
                     font={Fonts.body}
-                    color={Colors.text}
+                    color={Colors.textPrimary}
                   />
                   <label
                     value={`Radians: ${this.state.rotation.toFixed(2)}`}
@@ -480,17 +480,17 @@ export class GesturesDemo extends StatefulComponent<GesturesDemoViewModel, Gestu
                   <label
                     value={`Position: (${this.state.combinedPosition.x.toFixed(0)}, ${this.state.combinedPosition.y.toFixed(0)})`}
                     font={Fonts.caption}
-                    color={Colors.text}
+                    color={Colors.textPrimary}
                   />
                   <label
                     value={`Scale: ${this.state.combinedScale.toFixed(2)}x`}
                     font={Fonts.caption}
-                    color={Colors.text}
+                    color={Colors.textPrimary}
                   />
                   <label
                     value={`Rotation: ${this.toDegrees(this.state.combinedRotation).toFixed(0)}°`}
                     font={Fonts.caption}
-                    color={Colors.text}
+                    color={Colors.textPrimary}
                   />
                 </view>
 

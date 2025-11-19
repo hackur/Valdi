@@ -38,7 +38,7 @@
 
 import { StatefulComponent } from 'valdi_core/src/Component';
 import { Style } from 'valdi_core/src/Style';
-import { AnimationCurve, PresetCurveAnimationOptions } from 'valdi_core/src/Animation';
+import { AnimationCurve, PresetCurveAnimationOptions } from 'valdi_core/src/AnimationOptions';
 import { NavigationController } from 'valdi_navigation/src/NavigationController';
 import { NavigationPage } from 'valdi_navigation/src/NavigationPage';
 import { View, Label, Layout, ScrollView, BlurView, BlurStyle } from 'valdi_tsx/src/NativeTemplateElements';
@@ -105,7 +105,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
             <Card>
               <layout width="100%">
                 {/* Even-stop gradient */}
-                <label value="Even-Stop Gradient" font={Fonts.body} color={Colors.text} />
+                <label value="Even-Stop Gradient" font={Fonts.body} color={Colors.textPrimary} />
                 <view
                   width="100%"
                   height={120}
@@ -119,7 +119,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
                 </view>
 
                 {/* Custom-stop gradient */}
-                <label value="Custom-Stop Gradient" font={Fonts.body} color={Colors.text} />
+                <label value="Custom-Stop Gradient" font={Fonts.body} color={Colors.textPrimary} />
                 <view
                   width="100%"
                   height={120}
@@ -133,7 +133,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
                 </view>
 
                 {/* Gradient selector */}
-                <label value="Select Gradient Style" font={Fonts.body} color={Colors.text} />
+                <label value="Select Gradient Style" font={Fonts.body} color={Colors.textPrimary} />
                 <layout flexDirection="row" flexWrap="wrap">
                   <Button
                     title="Sunset"
@@ -189,7 +189,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
             <Card>
               <layout width="100%">
                 {/* Elevation levels */}
-                <label value="Elevation Levels (1-5)" font={Fonts.body} color={Colors.text} />
+                <label value="Elevation Levels (1-5)" font={Fonts.body} color={Colors.textPrimary} />
                 <layout flexDirection="row" flexWrap="wrap" justifyContent="space-around">
                   {[1, 2, 3, 4, 5].map((elevation) => (
                     <view
@@ -203,13 +203,13 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
                       justifyContent="center"
                       margin={Spacing.xs}
                     >
-                      <label value={`${elevation}`} font={Fonts.h2} color={Colors.text} />
+                      <label value={`${elevation}`} font={Fonts.h2} color={Colors.textPrimary} />
                     </view>
                   ))}
                 </layout>
 
                 {/* Colored shadows (glows) */}
-                <label value="Colored Shadows (Glows)" font={Fonts.body} color={Colors.text} />
+                <label value="Colored Shadows (Glows)" font={Fonts.body} color={Colors.textPrimary} />
                 <layout flexDirection="row" justifyContent="space-around" flexWrap="wrap">
                   <view
                     width={80}
@@ -238,7 +238,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
                 </layout>
 
                 {/* Interactive shadow demo */}
-                <label value="Press to See Shadow Change" font={Fonts.body} color={Colors.text} />
+                <label value="Press to See Shadow Change" font={Fonts.body} color={Colors.textPrimary} />
                 <view
                   width={150}
                   height={150}
@@ -261,7 +261,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
                   <label
                     value={this.state.isPressed ? 'Pressed!' : 'Press Me'}
                     font={Fonts.h3}
-                    color={Colors.text}
+                    color={Colors.textPrimary}
                   />
                 </view>
               </layout>
@@ -330,7 +330,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
                 {/* Blur style selector */}
                 {this.state.showBlur && (
                   <layout width="100%">
-                    <label value="Blur Style" font={Fonts.body} color={Colors.text} />
+                    <label value="Blur Style" font={Fonts.body} color={Colors.textPrimary} />
                     <layout flexDirection="row" flexWrap="wrap">
                       <Button
                         title="Light"
@@ -378,7 +378,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
                 <label
                   value={`Opacity: ${(this.state.opacity * 100).toFixed(0)}%`}
                   font={Fonts.body}
-                  color={Colors.text}
+                  color={Colors.textPrimary}
                 />
 
                 <view
@@ -412,7 +412,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
                 </layout>
 
                 {/* Fade animation */}
-                <label value="Fade Animation" font={Fonts.body} color={Colors.text} />
+                <label value="Fade Animation" font={Fonts.body} color={Colors.textPrimary} />
 
                 <view
                   width={200}
@@ -453,7 +453,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
             <Card>
               <layout width="100%">
                 {/* Premium card with gradient + shadow */}
-                <label value="Premium Card" font={Fonts.body} color={Colors.text} />
+                <label value="Premium Card" font={Fonts.body} color={Colors.textPrimary} />
                 <view
                   width="100%"
                   background="linear-gradient(135deg, #667EEA 0%, #764BA2 100%)"
@@ -476,7 +476,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
                 </view>
 
                 {/* Glass card effect */}
-                <label value="Glassmorphism Card" font={Fonts.body} color={Colors.text} />
+                <label value="Glassmorphism Card" font={Fonts.body} color={Colors.textPrimary} />
                 <view
                   width="100%"
                   height={200}
@@ -506,7 +506,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
                 </view>
 
                 {/* Elevated card */}
-                <label value="Elevated Card" font={Fonts.body} color={Colors.text} />
+                <label value="Elevated Card" font={Fonts.body} color={Colors.textPrimary} />
                 <view
                   width="100%"
                   backgroundColor={Colors.surface}
@@ -515,7 +515,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
                   padding={Spacing.lg}
                   margin={Spacing.xs}
                 >
-                  <label value="Featured Content" font={Fonts.h2} color={Colors.text} />
+                  <label value="Featured Content" font={Fonts.h2} color={Colors.textPrimary} />
                   <label
                     value="This card has elevation 4 shadow with smooth edges"
                     font={Fonts.body}

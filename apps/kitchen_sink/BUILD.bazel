@@ -18,5 +18,12 @@ valdi_application(
         "//apps/kitchen_sink/modules/state_demo",
         "//apps/kitchen_sink/modules/animation_demo",
         "//apps/kitchen_sink/modules/slots_demo",
+        "//apps/kitchen_sink/modules/shapes_demo",
+        "//apps/kitchen_sink/modules/forms_demo",
+        "//apps/kitchen_sink/modules/lists_demo",
+        "//apps/kitchen_sink/modules/images_demo",
+        "//apps/kitchen_sink/modules/styling_demo",
+        "//apps/kitchen_sink/modules/scrolling_demo",
+        "//apps/kitchen_sink/modules/gestures_demo",
     ],
 )

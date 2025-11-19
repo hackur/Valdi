@@ -172,8 +172,8 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
                   ) : (
                     this.state.items.forEach((item) => (
                       <view key={item.id} style={styles.listItem}>
-                        <layout flex={1}>
-                          <label value={item.title} font={Fonts.bodyBold} />
+                        <layout width="100%">
+                          <label value={item.title} font={Fonts.label} />
                           <label
                             value={item.description}
                             font={Fonts.caption}
@@ -266,8 +266,8 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
                   ) : (
                     filteredItems.forEach((item) => (
                       <view key={item.id} style={styles.listItem}>
-                        <layout flex={1}>
-                          <label value={item.title} font={Fonts.bodyBold} />
+                        <layout width="100%">
+                          <label value={item.title} font={Fonts.label} />
                           <label
                             value={item.description}
                             font={Fonts.caption}
@@ -337,12 +337,12 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
                     <view key={item.id} style={styles.listItem}>
                       <label
                         value={`#${index + 1}`}
-                        font={Fonts.bodyBold}
+                        font={Fonts.label}
                         color={Colors.primary}
                         width={40}
                       />
-                      <layout flex={1}>
-                        <label value={item.title} font={Fonts.bodyBold} />
+                      <layout>
+                        <label value={item.title} font={Fonts.label} />
                         <label
                           value={this.formatDate(item.date)}
                           font={Fonts.caption}
@@ -371,7 +371,7 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
 
                 {/* Viewport limiting toggle */}
                 <layout flexDirection="row" alignItems="center">
-                  <label value="Limit viewport:" font={Fonts.body} flex={1} />
+                  <label value="Limit viewport:" font={Fonts.body} />
                   <Button
                     title={this.state.limitViewport ? 'ON' : 'OFF'}
                     variant={this.state.limitViewport ? 'primary' : 'outline'}
@@ -454,7 +454,7 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
 
                 {/* Statistics */}
                 <view style={styles.statsBox}>
-                  <label value="Statistics:" font={Fonts.bodyBold} />
+                  <label value="Statistics:" font={Fonts.label} />
                   <label
                     value={`Total: ${this.state.items.length}`}
                     font={Fonts.caption}
@@ -476,7 +476,7 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
                 <layout width="100%">
                   {this.state.items.forEach((item) => (
                     <view key={item.id} style={styles.listItem}>
-                      <layout flex={1} flexDirection="row" alignItems="center">
+                      <layout flexDirection="row" alignItems="center">
                         <view
                           width={20}
                           height={20}
@@ -491,11 +491,11 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
                             <label value="✓" font={Fonts.caption} color={Colors.white} />
                           )}
                         </view>
-                        <layout flex={1}>
+                        <layout>
                           <label
                             value={item.title}
                             font={Fonts.body}
-                            color={item.completed ? Colors.textSecondary : Colors.text}
+                            color={item.completed ? Colors.textSecondary : Colors.textPrimary}
                             textDecoration={item.completed ? 'line-through' : 'none'}
                           />
                         </layout>

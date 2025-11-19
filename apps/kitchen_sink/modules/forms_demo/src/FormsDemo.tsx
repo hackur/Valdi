@@ -140,7 +140,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
           >
             <Card>
               <layout width="100%">
-                <label value="Name (Default)" font={Fonts.body} color={Colors.text} />
+                <label value="Name (Default)" font={Fonts.body} color={Colors.textPrimary} />
                 <textfield
                   value={this.state.name}
                   placeholder="Enter your name"
@@ -149,7 +149,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   style={styles.input}
                 />
 
-                <label value="Email" font={Fonts.body} color={Colors.text} />
+                <label value="Email" font={Fonts.body} color={Colors.textPrimary} />
                 <textfield
                   value={this.state.email}
                   placeholder="email@example.com"
@@ -160,7 +160,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   style={styles.input}
                 />
 
-                <label value="Phone Number" font={Fonts.body} color={Colors.text} />
+                <label value="Phone Number" font={Fonts.body} color={Colors.textPrimary} />
                 <textfield
                   value={this.state.phone}
                   placeholder="(555) 123-4567"
@@ -169,7 +169,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   style={styles.input}
                 />
 
-                <label value="Password (Secure)" font={Fonts.body} color={Colors.text} />
+                <label value="Password (Secure)" font={Fonts.body} color={Colors.textPrimary} />
                 <textfield
                   value={this.state.password}
                   placeholder="Enter password"
@@ -179,7 +179,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   style={styles.input}
                 />
 
-                <label value="Website URL" font={Fonts.body} color={Colors.text} />
+                <label value="Website URL" font={Fonts.body} color={Colors.textPrimary} />
                 <textfield
                   value={this.state.website}
                   placeholder="https://example.com"
@@ -189,7 +189,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   style={styles.input}
                 />
 
-                <label value="Age (Number)" font={Fonts.body} color={Colors.text} />
+                <label value="Age (Number)" font={Fonts.body} color={Colors.textPrimary} />
                 <textfield
                   value={this.state.age}
                   placeholder="25"
@@ -198,7 +198,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   style={styles.input}
                 />
 
-                <label value="Bio (Multi-line)" font={Fonts.body} color={Colors.text} />
+                <label value="Bio (Multi-line)" font={Fonts.body} color={Colors.textPrimary} />
                 <textview
                   value={this.state.bio}
                   placeholder="Tell us about yourself..."
@@ -216,7 +216,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
           >
             <Card>
               <layout width="100%">
-                <label value="Email Validation" font={Fonts.body} color={Colors.text} />
+                <label value="Email Validation" font={Fonts.body} color={Colors.textPrimary} />
                 <textfield
                   value={this.state.email}
                   placeholder="email@example.com"
@@ -244,7 +244,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   <label value="✓ Valid email" font={Fonts.caption} color={Colors.success} />
                 )}
 
-                <label value="Username (3-20 chars, alphanumeric + _)" font={Fonts.body} color={Colors.text} />
+                <label value="Username (3-20 chars, alphanumeric + _)" font={Fonts.body} color={Colors.textPrimary} />
                 <textfield
                   value={this.state.usernameValue}
                   placeholder="john_doe123"
@@ -281,7 +281,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
           >
             <Card>
               <layout width="100%">
-                <label value="First Name (press Next)" font={Fonts.body} color={Colors.text} />
+                <label value="First Name (press Next)" font={Fonts.body} color={Colors.textPrimary} />
                 <textfield
                   value={this.state.firstName}
                   placeholder="John"
@@ -292,7 +292,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   style={styles.input}
                 />
 
-                <label value="Last Name (press Next)" font={Fonts.body} color={Colors.text} />
+                <label value="Last Name (press Next)" font={Fonts.body} color={Colors.textPrimary} />
                 <textfield
                   value={this.state.lastName}
                   placeholder="Doe"
@@ -303,7 +303,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   style={styles.input}
                 />
 
-                <label value="Search (press Search)" font={Fonts.body} color={Colors.text} />
+                <label value="Search (press Search)" font={Fonts.body} color={Colors.textPrimary} />
                 <textfield
                   value={this.state.searchQuery}
                   placeholder="Search..."
@@ -351,7 +351,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   </view>
                 ) : (
                   <layout width="100%">
-                    <label value="First Name *" font={Fonts.body} color={Colors.text} />
+                    <label value="First Name *" font={Fonts.body} color={Colors.textPrimary} />
                     <textfield
                       value={this.state.formFirstName}
                       placeholder="John"
@@ -367,7 +367,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                       />
                     )}
 
-                    <label value="Last Name *" font={Fonts.body} color={Colors.text} />
+                    <label value="Last Name *" font={Fonts.body} color={Colors.textPrimary} />
                     <textfield
                       value={this.state.formLastName}
                       placeholder="Doe"
@@ -383,7 +383,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                       />
                     )}
 
-                    <label value="Email *" font={Fonts.body} color={Colors.text} />
+                    <label value="Email *" font={Fonts.body} color={Colors.textPrimary} />
                     <textfield
                       value={this.state.formEmail}
                       placeholder="john@example.com"
@@ -401,7 +401,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                       />
                     )}
 
-                    <label value="Phone" font={Fonts.body} color={Colors.text} />
+                    <label value="Phone" font={Fonts.body} color={Colors.textPrimary} />
                     <textfield
                       value={this.state.formPhone}
                       placeholder="(555) 123-4567"
@@ -411,7 +411,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                       style={styles.input}
                     />
 
-                    <label value="Password * (min 8 chars)" font={Fonts.body} color={Colors.text} />
+                    <label value="Password * (min 8 chars)" font={Fonts.body} color={Colors.textPrimary} />
                     <textfield
                       value={this.state.formPassword}
                       placeholder="••••••••"
@@ -429,7 +429,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                       />
                     )}
 
-                    <label value="Confirm Password *" font={Fonts.body} color={Colors.text} />
+                    <label value="Confirm Password *" font={Fonts.body} color={Colors.textPrimary} />
                     <textfield
                       value={this.state.formConfirmPassword}
                       placeholder="••••••••"
@@ -653,7 +653,7 @@ const styles = {
     borderRadius: BorderRadius.sm,
     marginBottom: Spacing.xs,
     font: Fonts.body,
-    color: Colors.text,
+    color: Colors.textPrimary,
   }),
 
   textarea: new Style<TextView>({
@@ -664,6 +664,6 @@ const styles = {
     borderRadius: BorderRadius.sm,
     marginBottom: Spacing.xs,
     font: Fonts.body,
-    color: Colors.text,
+    color: Colors.textPrimary,
   }),
 };

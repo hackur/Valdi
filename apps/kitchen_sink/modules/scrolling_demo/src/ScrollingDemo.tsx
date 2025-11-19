@@ -42,7 +42,7 @@
 
 import { StatefulComponent } from 'valdi_core/src/Component';
 import { Style } from 'valdi_core/src/Style';
-import { AnimationCurve, PresetCurveAnimationOptions } from 'valdi_core/src/Animation';
+import { AnimationCurve, PresetCurveAnimationOptions } from 'valdi_core/src/AnimationOptions';
 import { NavigationController } from 'valdi_navigation/src/NavigationController';
 import { NavigationPage } from 'valdi_navigation/src/NavigationPage';
 import {
@@ -167,7 +167,7 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
                           <label
                             value={`Vertical Item ${i + 1}`}
                             font={Fonts.body}
-                            color={Colors.text}
+                            color={Colors.textPrimary}
                           />
                         </view>
                       ))}
@@ -245,12 +245,12 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
                   <label
                     value={`Position: ${this.state.scrollPosition.y.toFixed(0)}px`}
                     font={Fonts.body}
-                    color={Colors.text}
+                    color={Colors.textPrimary}
                   />
                   <label
                     value={`Velocity: ${this.state.scrollVelocity.y.toFixed(0)}px/s`}
                     font={Fonts.body}
-                    color={Colors.text}
+                    color={Colors.textPrimary}
                   />
                   <label
                     value={`Status: ${this.state.isScrolling ? 'Scrolling' : 'Stopped'}`}
@@ -300,7 +300,7 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
                           <label
                             value={`Tracked Item ${i + 1}`}
                             font={Fonts.body}
-                            color={Colors.text}
+                            color={Colors.textPrimary}
                           />
                         </view>
                       ))}
@@ -440,7 +440,7 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
                           justifyContent="space-between"
                           alignItems="center"
                         >
-                          <label value={`Item ${i + 1}`} font={Fonts.body} color={Colors.text} />
+                          <label value={`Item ${i + 1}`} font={Fonts.body} color={Colors.textPrimary} />
                           <Button
                             title="Go Here"
                             size="small"
@@ -487,7 +487,7 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
                     <label
                       value={`Extension: ${this.state.viewportExtension}px`}
                       font={Fonts.caption}
-                      color={Colors.text}
+                      color={Colors.textPrimary}
                     />
                   </view>
                 </layout>
@@ -531,7 +531,7 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
                           <label
                             value={`Item ${i + 1} of ${this.state.itemCount}`}
                             font={Fonts.body}
-                            color={Colors.text}
+                            color={Colors.textPrimary}
                           />
                           <label
                             value={
