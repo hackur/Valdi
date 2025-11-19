@@ -8,7 +8,7 @@
 import { StatefulComponent, Component } from 'valdi_core/src/Component';
 import { Style } from 'valdi_core/src/Style';
 import { NavigationController } from 'valdi_navigation/src/NavigationController';
-import { NavigationPageComponent } from 'valdi_navigation/src/NavigationPageComponent';
+
 import { NavigationPage } from 'valdi_navigation/src/NavigationPage';
 import { View, Label, Layout, ScrollView } from 'valdi_tsx/src/NativeTemplateElements';
 
@@ -32,6 +32,11 @@ interface SlotsDemoState {
 
 @NavigationPage(module)
 export class SlotsDemo extends StatefulComponent<SlotsDemoViewModel, SlotsDemoState> {
+  // Override navigationController to fix Android initialization issue
+  get navigationController(): NavigationController {
+    return this.viewModel.navigationController;
+  }
+
   state: SlotsDemoState = {
     clickCount: 0,
   };

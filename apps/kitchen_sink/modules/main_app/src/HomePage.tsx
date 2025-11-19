@@ -6,7 +6,6 @@
 import { Component } from 'valdi_core/src/Component';
 import { Style } from 'valdi_core/src/Style';
 import { NavigationController } from 'valdi_navigation/src/NavigationController';
-import { NavigationPageComponent } from 'valdi_navigation/src/NavigationPageComponent';
 import { NavigationPage } from 'valdi_navigation/src/NavigationPage';
 import { View, Label, Layout, ScrollView } from 'valdi_tsx/src/NativeTemplateElements';
 
@@ -34,7 +33,7 @@ interface DemoSection {
 }
 
 @NavigationPage(module)
-export class HomePage extends NavigationPageComponent<HomePageViewModel> {
+export class HomePage extends Component<HomePageViewModel> {
   private demoSections: DemoSection[] = [
     {
       id: 'layouts',
