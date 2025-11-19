@@ -32,17 +32,22 @@ A comprehensive demonstration application showcasing the Valdi cross-platform UI
 
 **Complete Infrastructure:**
 - ✅ iOS app builds successfully (~7-10 second incremental builds)
-- ✅ App launches without crashes on iOS Simulator
+- ✅ Android app builds successfully (~5-14 second builds)
+- ✅ App launches without crashes on both iOS and Android
 - ✅ Navigation system working between demos
 - ✅ Design system with 8 reusable components (Button, Card, Header, ErrorBoundary, LoadingSpinner, EmptyState, DemoSection, CodeBlock)
 - ✅ Professional UI with consistent styling
-- ✅ Development scripts and build verification tools
+- ✅ Development scripts and build verification tools for both platforms
 
 **Build Details:**
-- Platform: iOS (iPhone)
-- Bundle ID: `com.valdi.kitchensink`
+- Platforms: iOS (iPhone), Android
+- Bundle IDs:
+  - iOS: `com.valdi.kitchensink`
+  - Android: `com.snap.valdi.kitchen_sink`
 - Build System: Bazel + Valdi Compiler
-- App Size: 65MB (includes Valdi runtime)
+- App Size:
+  - iOS: 65MB (includes Valdi runtime)
+  - Android: 17MB APK
 - TypeScript: Strict mode, fully type-safe
 
 ### 🚧 Work In Progress
@@ -62,21 +67,41 @@ See [Roadmap & TODOs](#roadmap--todos) for details.
 
 ## Quick Start
 
-### Building the App
+### iOS
 
 ```bash
-# From Valdi root directory
-cd /path/to/Valdi
+# Build and install to iOS Simulator (recommended)
+npm run dev
 
-# Build iOS app
-valdi build ios --application=//apps/kitchen_sink:kitchen_sink_ios
+# Or build and install separately
+npm run build:ios
+npm run test:ios "iPhone 16"
 ```
 
-### Installing on iOS Simulator
+### Android
 
 ```bash
-# List available simulators
+# Build and install to Android device/emulator (recommended)
+npm run test:android
+
+# Or build separately
+npm run build:android
+```
+
+### Manual Build (if not using npm)
+
+```bash
+# iOS
+valdi build ios --application=//apps/kitchen_sink:kitchen_sink_ios
+
+# Android
+valdi build android --application=//apps/kitchen_sink:kitchen_sink_android
+
+# List iOS simulators
 xcrun simctl list devices available | grep "iPhone"
+
+# List Android devices
+adb devices
 
 # Boot simulator (example: iPhone 16)
 DEVICE_ID="your-device-id-here"

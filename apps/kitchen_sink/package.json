@@ -23,16 +23,19 @@
   "scripts": {
     "build": "./scripts/build.sh",
     "build:ios": "./scripts/build.sh",
+    "build:android": "./scripts/build-android.sh",
     "clean": "./scripts/clean.sh",
     "clean:deep": "./scripts/clean.sh --deep",
     "dev": "./scripts/dev.sh",
     "test:ios": "./scripts/test-ios.sh",
+    "test:android": "./scripts/test-android.sh",
     "verify": "./scripts/verify.sh",
     "simulators": "./scripts/list-simulators.sh",
+    "devices:android": "./scripts/list-android-devices.sh",
     "lint": "eslint \"modules/**/*.{ts,tsx}\"",
     "lint:fix": "eslint \"modules/**/*.{ts,tsx}\" --fix",
     "test": "echo 'Run tests with: bazel test //modules/...:test'",
-    "help": "echo '\n📱 Valdi Kitchen Sink - Available Commands:\n\n  npm run build        - Build iOS app\n  npm run dev          - Build and install to simulator\n  npm run test:ios     - Install to iOS Simulator\n  npm run verify       - Run build verification\n  npm run clean        - Clean build artifacts\n  npm run clean:deep   - Deep clean (removes cache)\n  npm run simulators   - List available iOS Simulators\n  npm run lint         - Run ESLint\n  npm run lint:fix     - Fix ESLint errors\n\nFor more details, see WORKFLOW.md\n'"
+    "help": "echo '\n📱 Valdi Kitchen Sink - Available Commands:\n\niOS:\n  npm run build:ios       - Build iOS app\n  npm run dev             - Build and install to iOS simulator\n  npm run test:ios        - Install to iOS Simulator\n  npm run simulators      - List available iOS Simulators\n\nAndroid:\n  npm run build:android   - Build Android APK\n  npm run test:android    - Build and install to Android device/emulator\n  npm run devices:android - List connected Android devices\n\nGeneral:\n  npm run verify          - Run build verification\n  npm run clean           - Clean build artifacts\n  npm run clean:deep      - Deep clean (removes cache)\n  npm run lint            - Run ESLint\n  npm run lint:fix        - Fix ESLint errors\n\nFor more details, see WORKFLOW.md\n'"
   },
   "keywords": [
     "valdi",
