@@ -1,6 +1,90 @@
 /**
- * StateDemo Component
- * Demonstrates StatefulComponent, state management, and lifecycle methods
+ * State Management & Lifecycle Demo
+ *
+ * Comprehensive demonstration of Valdi's state management system using StatefulComponent.
+ * Shows how to manage component state, handle state updates, and understand the component
+ * lifecycle.
+ *
+ * **StatefulComponent vs Component:**
+ *
+ * Valdi provides two base classes for components:
+ *
+ * 1. **Component** - For stateless components that only render based on props (viewModel)
+ * 2. **StatefulComponent** - For components that maintain internal state that can change over time
+ *
+ * **State Management Pattern:**
+ *
+ * ```typescript
+ * // Define state interface
+ * interface MyState {
+ *   counter: number;
+ *   isVisible: boolean;
+ * }
+ *
+ * // Extend StatefulComponent with ViewModel and State types
+ * class MyComponent extends StatefulComponent<MyViewModel, MyState> {
+ *   // Initialize state
+ *   state: MyState = {
+ *     counter: 0,
+ *     isVisible: true,
+ *   };
+ *
+ *   // Update state (triggers re-render)
+ *   handleClick() {
+ *     this.setState({ counter: this.state.counter + 1 });
+ *   }
+ * }
+ * ```
+ *
+ * **The setState() Method:**
+ *
+ * - `setState(partialState)` merges the partial state object with current state
+ * - Triggers a re-render of the component
+ * - State updates are batched for performance
+ * - Always use setState(), NEVER mutate this.state directly
+ *
+ * **Component Lifecycle Methods:**
+ *
+ * StatefulComponent provides lifecycle hooks called at specific points:
+ *
+ * 1. **onCreate()** - Called once when component is first created
+ *    - Use for: Initial setup, subscriptions, one-time operations
+ *
+ * 2. **onViewModelUpdate(previous?)** - Called when props (viewModel) change
+ *    - Use for: Responding to prop changes, derived state updates
+ *
+ * 3. **onRender()** - Called whenever component needs to render
+ *    - Use for: Returning the component's UI tree
+ *    - Called after state or viewModel changes
+ *
+ * 4. **onDestroy()** - Called when component is being removed
+ *    - Use for: Cleanup, unsubscribing, releasing resources
+ *
+ * **State Immutability:**
+ *
+ * Valdi follows React-like immutability patterns:
+ * - Don't mutate arrays/objects in state directly
+ * - Create new copies when updating complex state
+ * - Use spread operator for updates: `setState({ items: [...items, newItem] })`
+ *
+ * **Best Practices:**
+ *
+ * 1. Keep state minimal - derive values in render when possible
+ * 2. Use StatefulComponent only when you need mutable state
+ * 3. Prefer Component + props for simple, reusable components
+ * 4. Don't store props in state (causes sync issues)
+ * 5. Group related state updates in a single setState() call
+ *
+ * **Comparison to Other Frameworks:**
+ *
+ * - **React:** Similar to class components with `this.state` and `this.setState()`
+ * - **Vue:** Similar to Vue 2's `data` and state management
+ * - **Angular:** Similar to component properties with change detection
+ *
+ * **References:**
+ * @see {@link https://github.com/valdi-labs/valdi|Valdi Framework Documentation}
+ * @see StatefulComponent for the base class API
+ * @see Component for stateless component pattern
  */
 
 import { StatefulComponent } from 'valdi_core/src/Component';
@@ -22,10 +106,24 @@ import {
   CodeBlock,
 } from '../../common/src/index';
 
+/**
+ * ViewModel interface defines the props (external data) passed to this component.
+ * In this case, we only receive the navigationController from the parent.
+ */
 export interface StateDemoViewModel {
   navigationController: NavigationController;
 }
 
+/**
+ * State interface defines all internal state managed by this component.
+ * Each property represents a piece of data that can change over time.
+ *
+ * **State Design:**
+ * - counter: Numeric value demonstrating increment/decrement operations
+ * - likes: Separate counter for demonstrating independent state updates
+ * - isToggled: Boolean state for demonstrating conditional rendering
+ * - lifecycleLog: Array demonstrating mutable state (shows lifecycle events)
+ */
 interface StateDemoState {
   counter: number;
   likes: number;
@@ -35,6 +133,18 @@ interface StateDemoState {
 
 @NavigationPage(module)
 export class StateDemo extends StatefulComponent<StateDemoViewModel, StateDemoState> {
+  /**
+   * Initial State Declaration
+   *
+   * The `state` property must be initialized with default values for all state properties.
+   * This is the ONLY place where you should directly assign to `state` - all other
+   * state changes must go through `setState()`.
+   *
+   * **Pattern:**
+   * - Set sensible defaults (0 for numbers, false for booleans, [] for arrays)
+   * - Ensure type matches the StateDemoState interface
+   * - Keep initialization simple (no async operations or side effects)
+   */
   state: StateDemoState = {
     counter: 0,
     likes: 0,
@@ -42,18 +152,69 @@ export class StateDemo extends StatefulComponent<StateDemoViewModel, StateDemoSt
     lifecycleLog: [],
   };
 
+  /**
+   * onCreate() Lifecycle Method
+   *
+   * Called ONCE when the component is first created, before the first render.
+   * This is the earliest lifecycle hook available.
+   *
+   * **Common Uses:**
+   * - Setting up subscriptions or event listeners
+   * - Starting timers or intervals
+   * - Performing initial data fetching
+   * - Logging component initialization
+   *
+   * **Important:**
+   * - Don't rely on DOM/UI being ready (not rendered yet)
+   * - Can call setState() here, but it won't trigger extra render
+   */
   onCreate() {
-    // Called when component is first created
     this.addLifecycleLog('onCreate() called');
   }
 
+  /**
+   * onViewModelUpdate() Lifecycle Method
+   *
+   * Called whenever the component's props (viewModel) change from the parent.
+   * Receives the previous viewModel for comparison.
+   *
+   * **Common Uses:**
+   * - Reacting to prop changes
+   * - Updating state based on new props
+   * - Re-fetching data when props change
+   * - Validating new prop values
+   *
+   * **Pattern Example:**
+   * ```typescript
+   * onViewModelUpdate(previous?: MyViewModel) {
+   *   if (previous?.userId !== this.viewModel.userId) {
+   *     // User changed, fetch new data
+   *     this.fetchUserData(this.viewModel.userId);
+   *   }
+   * }
+   * ```
+   */
   onViewModelUpdate(previous?: StateDemoViewModel) {
-    // Called when view model (props) change
     this.addLifecycleLog(`onViewModelUpdate() called`);
   }
 
+  /**
+   * onDestroy() Lifecycle Method
+   *
+   * Called when the component is being removed from the UI tree.
+   * This is your last chance to clean up resources.
+   *
+   * **Common Uses:**
+   * - Clearing timers/intervals
+   * - Unsubscribing from events
+   * - Cancelling pending requests
+   * - Releasing resources
+   *
+   * **Important:**
+   * - Don't call setState() here (component is being destroyed)
+   * - Always clean up to prevent memory leaks
+   */
   onDestroy() {
-    // Called when component is destroyed
     this.addLifecycleLog('onDestroy() called');
   }
 
@@ -237,8 +398,52 @@ export class Counter extends StatefulComponent<{}, MyState> {
     </view>;
   }
 
+  /**
+   * Helper method demonstrating immutable array updates in state
+   *
+   * **Immutability Pattern for Arrays:**
+   *
+   * When updating arrays in state, you must create a NEW array rather than
+   * mutating the existing one. This ensures Valdi detects the change and
+   * triggers a re-render.
+   *
+   * **Wrong (mutates state directly):**
+   * ```typescript
+   * this.state.lifecycleLog.push(message); // ❌ Never do this!
+   * ```
+   *
+   * **Correct (creates new array):**
+   * ```typescript
+   * this.setState({
+   *   lifecycleLog: [...this.state.lifecycleLog, message] // ✅ Spread operator creates new array
+   * });
+   * ```
+   *
+   * **Why Immutability Matters:**
+   * - Enables efficient change detection (reference comparison)
+   * - Prevents bugs from unexpected state mutations
+   * - Makes state changes predictable and traceable
+   * - Allows for features like undo/redo
+   *
+   * **Common Array Update Patterns:**
+   * ```typescript
+   * // Add item
+   * setState({ items: [...items, newItem] })
+   *
+   * // Remove item
+   * setState({ items: items.filter(i => i.id !== removeId) })
+   *
+   * // Update item
+   * setState({ items: items.map(i => i.id === updateId ? updatedItem : i) })
+   *
+   * // Replace all items
+   * setState({ items: newItems })
+   * ```
+   */
   private addLifecycleLog(message: string) {
     this.setState({
+      // Spread operator (...) creates a new array with existing items plus the new message
+      // This is the immutable way to "append" to an array in state
       lifecycleLog: [...this.state.lifecycleLog, message],
     });
   }

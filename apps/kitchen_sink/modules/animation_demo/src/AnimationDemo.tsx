@@ -1,6 +1,111 @@
 /**
- * AnimationDemo Component
- * Demonstrates animate() method with various animation curves and properties
+ * Animation & Curves Demo
+ *
+ * Comprehensive demonstration of Valdi's animation system, including animation curves,
+ * timing functions, and animatable properties. Shows how to create smooth, performant
+ * animations for UI elements.
+ *
+ * **Animation System Overview:**
+ *
+ * Valdi provides a declarative animation API through the `animate()` method. Instead of
+ * manually updating values over time, you declare the target state and animation parameters,
+ * and Valdi handles the interpolation.
+ *
+ * **Basic Animation Pattern:**
+ * ```typescript
+ * animate(
+ *   // Target state (what to animate to)
+ *   () => this.setState({ boxScale: 2 }),
+ *   // Animation options
+ *   { duration: 300, curve: AnimationCurve.easeInOut }
+ * );
+ * ```
+ *
+ * **Animation Curves (Timing Functions):**
+ *
+ * Curves control the rate of change during an animation, affecting how it "feels":
+ *
+ * 1. **Linear** - Constant speed from start to finish
+ *    - Use for: Progress indicators, looping animations
+ *    - Feels: Mechanical, steady
+ *
+ * 2. **EaseIn** - Starts slow, accelerates
+ *    - Use for: Elements entering the screen, fade-ins
+ *    - Feels: Natural entry, gathering momentum
+ *
+ * 3. **EaseOut** - Starts fast, decelerates
+ *    - Use for: Elements exiting, settling into place
+ *    - Feels: Natural deceleration, coming to rest
+ *
+ * 4. **EaseInOut** - Starts slow, fast in middle, ends slow
+ *    - Use for: State transitions, smooth property changes
+ *    - Feels: Most natural for UI transitions
+ *
+ * 5. **Spring** - Physics-based bouncy motion
+ *    - Use for: Interactive elements, attention-grabbing effects
+ *    - Feels: Playful, dynamic, responsive
+ *
+ * **Animatable Properties:**
+ *
+ * Most visual properties can be animated:
+ * - **Layout:** width, height, padding, margin
+ * - **Position:** translateX, translateY, left, top
+ * - **Transform:** scale, rotate, skew
+ * - **Visual:** opacity, backgroundColor, borderColor
+ * - **Effects:** borderRadius, shadowOpacity
+ *
+ * **Animation Options:**
+ * ```typescript
+ * interface AnimationOptions {
+ *   duration: number;        // Animation length in milliseconds
+ *   curve: AnimationCurve;  // Timing function (easeIn, easeOut, etc.)
+ *   delay?: number;         // Wait before starting (optional)
+ * }
+ * ```
+ *
+ * **Chaining & Sequences:**
+ *
+ * Animations can be chained by calling animate() in the completion callback:
+ * ```typescript
+ * animate(
+ *   () => this.setState({ scale: 2 }),
+ *   { duration: 300, curve: AnimationCurve.easeOut },
+ *   () => {
+ *     // Called when first animation completes
+ *     animate(
+ *       () => this.setState({ scale: 1 }),
+ *       { duration: 300, curve: AnimationCurve.easeIn }
+ *     );
+ *   }
+ * );
+ * ```
+ *
+ * **Best Practices:**
+ *
+ * 1. **Keep durations short** (150-400ms) for UI responsiveness
+ * 2. **Use easeInOut** for most transitions (feels most natural)
+ * 3. **Use spring** sparingly (can be distracting if overused)
+ * 4. **Animate transforms** (scale, rotate) over layout properties for better performance
+ * 5. **Test on real devices** - animations may feel different on actual hardware
+ * 6. **Respect accessibility** - provide reduced-motion alternatives
+ *
+ * **Performance Tips:**
+ *
+ * - Prefer transform/opacity animations (GPU-accelerated)
+ * - Avoid animating layout properties (width, height) if possible
+ * - Use lower framerates on older devices
+ * - Limit concurrent animations
+ *
+ * **Comparison to Other Frameworks:**
+ *
+ * - **React:** Similar to React Spring or Framer Motion
+ * - **Vue:** Similar to Vue's <transition> component
+ * - **CSS:** Similar to CSS transitions and @keyframes animations
+ *
+ * **References:**
+ * @see {@link https://github.com/valdi-labs/valdi|Valdi Framework Documentation}
+ * @see AnimationCurve for available curve types
+ * @see PresetCurveAnimationOptions for animation configuration
  */
 
 import { StatefulComponent } from 'valdi_core/src/Component';

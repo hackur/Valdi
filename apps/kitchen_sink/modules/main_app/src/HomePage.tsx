@@ -1,6 +1,38 @@
 /**
  * HomePage Component
- * Main landing page with demo section cards
+ *
+ * Main landing page displaying a grid of all available Valdi feature demonstrations.
+ * Serves as the navigation hub for the Kitchen Sink application.
+ *
+ * **Architecture Decision: Why Component Instead of NavigationPageComponent**
+ *
+ * This component extends Component rather than NavigationPageComponent to ensure
+ * cross-platform compatibility, specifically to prevent Android initialization failures.
+ *
+ * Technical Background:
+ * The NavigationPageComponent base class includes a class field initializer:
+ *   navigationController = new NavigationController(this.context.navigator)
+ *
+ * This field initializer executes during class construction, before the component's
+ * context has been properly initialized. On iOS, the initialization order allows
+ * this to work, but on Android the context is not yet available, resulting in:
+ *   "Cannot read property 'navigator' of undefined"
+ *
+ * Solution:
+ * By extending Component directly and using the @NavigationPage decorator, we get
+ * all navigation functionality without the problematic field initializer. The
+ * NavigationController is passed through the viewModel instead, which is available
+ * when the component methods (onCreate, onRender, etc.) execute.
+ *
+ * **Platform Compatibility:**
+ * - iOS: Tested and verified working
+ * - Android: Tested and verified working
+ *
+ * **References:**
+ * @see {@link https://github.com/valdi-labs/valdi|Valdi Framework Documentation}
+ * @see NavigationController for navigation API
+ * @see NavigationPage decorator for page registration
+ * @see DemoSection interface for demo card data structure
  */
 
 import { Component } from 'valdi_core/src/Component';
@@ -10,11 +42,22 @@ import { NavigationPage } from 'valdi_navigation/src/NavigationPage';
 import { View, Label, Layout, ScrollView } from 'valdi_tsx/src/NativeTemplateElements';
 
 import { Colors, Fonts, Spacing, BorderRadius, Shadows } from '../../common/src/index';
+
+// Implemented demos
 import { LayoutsDemo } from '../../layouts_demo/src/LayoutsDemo';
 import { TextDemo } from '../../text_demo/src/TextDemo';
 import { StateDemo } from '../../state_demo/src/StateDemo';
 import { AnimationDemo } from '../../animation_demo/src/AnimationDemo';
 import { SlotsDemo } from '../../slots_demo/src/SlotsDemo';
+
+// Placeholder demos (coming soon)
+import { ImagesDemo } from '../../images_demo/src/ImagesDemo';
+import { ScrollingDemo } from '../../scrolling_demo/src/ScrollingDemo';
+import { GesturesDemo } from '../../gestures_demo/src/GesturesDemo';
+import { StylingDemo } from '../../styling_demo/src/StylingDemo';
+import { ShapesDemo } from '../../shapes_demo/src/ShapesDemo';
+import { FormsDemo } from '../../forms_demo/src/FormsDemo';
+import { ListsDemo } from '../../lists_demo/src/ListsDemo';
 
 export interface HomePageViewModel {
   navigationController: NavigationController;
@@ -192,66 +235,53 @@ export class HomePage extends Component<HomePageViewModel> {
         navController.push(AnimationDemo, { navigationController: navController }, {});
         break;
 
-      // 🚧 Not Yet Implemented - See README.md "Roadmap & TODOs" section for details
+      // 🚧 Placeholder Demos - Components created but features not yet fully implemented
 
       case 'media':
-        // TODO: Implement ImagesDemo component
-        // Should demonstrate: <image> with local/remote images, image scaling,
-        // loading states, error handling, <video> playback (if supported)
-        // Estimated effort: 4-6 hours
-        console.log('Images & Media demo not yet implemented');
+        // ImagesDemo placeholder - explains planned features for image/video handling
+        // See images_demo/src/ImagesDemo.tsx for implementation roadmap
+        navController.push(ImagesDemo, { navigationController: navController }, {});
         break;
 
       case 'scroll':
-        // TODO: Implement ScrollingDemo component
-        // Should demonstrate: vertical/horizontal scroll, nested scroll views,
-        // pull-to-refresh, scroll position tracking, virtual lists
-        // Estimated effort: 6-8 hours
-        console.log('Scrolling & Lists demo not yet implemented');
+        // ScrollingDemo placeholder - explains planned features for advanced scrolling
+        // See scrolling_demo/src/ScrollingDemo.tsx for implementation roadmap
+        navController.push(ScrollingDemo, { navigationController: navController }, {});
         break;
 
       case 'gestures':
-        // TODO: Implement GesturesDemo component
-        // Should demonstrate: onTap, onLongPress, onDrag, onPinch, onRotate,
-        // gesture conflicts, multi-touch, velocity/position data
-        // Estimated effort: 6-8 hours
-        console.log('Gestures demo not yet implemented');
+        // GesturesDemo placeholder - explains planned features for gesture handling
+        // See gestures_demo/src/GesturesDemo.tsx for implementation roadmap
+        navController.push(GesturesDemo, { navigationController: navController }, {});
         break;
 
       case 'styling':
-        // TODO: Implement StylingDemo component
-        // Should demonstrate: gradients, advanced shadows, border styling,
-        // clipping/masks, blend modes, transforms, backdrop blur
-        // Estimated effort: 4-6 hours
-        console.log('Advanced Styling demo not yet implemented');
+        // StylingDemo placeholder - explains planned features for advanced styling
+        // See styling_demo/src/StylingDemo.tsx for implementation roadmap
+        navController.push(StylingDemo, { navigationController: navController }, {});
         break;
 
       case 'shapes':
-        // TODO: Implement ShapesDemo component
-        // Should demonstrate: <shape> element, path drawing, filled vs stroked,
-        // path animations, SVG-like capabilities
-        // Estimated effort: 6-8 hours
-        console.log('Shapes & Paths demo not yet implemented');
+        // ShapesDemo placeholder - explains planned features for shape drawing
+        // See shapes_demo/src/ShapesDemo.tsx for implementation roadmap
+        navController.push(ShapesDemo, { navigationController: navController }, {});
         break;
 
       case 'slots':
+        // ✅ Fully implemented - demonstrates slot-based composition
         navController.push(SlotsDemo, { navigationController: navController }, {});
         break;
 
       case 'forms':
-        // TODO: Implement FormsDemo component
-        // Should demonstrate: form state management, validation, error handling,
-        // form submission, multi-step forms, keyboard management, accessibility
-        // Estimated effort: 8-10 hours
-        console.log('Forms & Validation demo not yet implemented');
+        // FormsDemo placeholder - explains planned features for form handling
+        // See forms_demo/src/FormsDemo.tsx for implementation roadmap
+        navController.push(FormsDemo, { navigationController: navController }, {});
         break;
 
       case 'lists':
-        // TODO: Implement DynamicListsDemo component
-        // Should demonstrate: list rendering with forEach (already shown here!),
-        // list keys, add/remove items, filter/sort, search, virtualization
-        // Estimated effort: 6-8 hours
-        console.log('Dynamic Lists demo not yet implemented');
+        // ListsDemo placeholder - explains planned features for dynamic list rendering
+        // See lists_demo/src/ListsDemo.tsx for implementation roadmap
+        navController.push(ListsDemo, { navigationController: navController }, {});
         break;
 
       default:

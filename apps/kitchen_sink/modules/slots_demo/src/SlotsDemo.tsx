@@ -1,8 +1,65 @@
 /**
  * Slots & Composition Demo
  *
- * Demonstrates Valdi's content projection system using <slot> elements.
- * Shows basic slots, render functions with $slot(), and composition patterns.
+ * Comprehensive demonstration of Valdi's content projection system using the <slot> element.
+ * This demo showcases how to build reusable, composable components through slot-based
+ * content projection, similar to React's children prop or Vue's slot system.
+ *
+ * **What are Slots?**
+ *
+ * Slots are placeholders within a component where child content will be rendered. They
+ * enable component composition by allowing parent components to project content into
+ * child component templates.
+ *
+ * **Basic Slot Syntax:**
+ * ```typescript
+ * // In reusable component
+ * class Card extends Component {
+ *   onRender() {
+ *     <view style={cardStyle}>
+ *       <slot /> {/* Child content renders here */}
+ *     </view>;
+ *   }
+ * }
+ *
+ * // Usage
+ * <Card>
+ *   <label value="This content gets projected into the <slot />" />
+ * </Card>
+ * ```
+ *
+ * **Key Concepts Demonstrated:**
+ *
+ * 1. **Simple Content Projection:** Basic <slot /> usage for rendering child elements
+ * 2. **Multiple Children:** Projecting multiple elements through a single slot
+ * 3. **Component Composition:** Building complex UIs from simple, reusable components
+ * 4. **Interactive Slots:** Combining slots with event handlers and state management
+ * 5. **Styling Variations:** Using props to customize component appearance while projecting content
+ *
+ * **Technical Details:**
+ *
+ * - <slot /> is a built-in Valdi element (lowercase), not an imported component
+ * - Slots can project any number of child elements
+ * - Slot content is rendered in the parent component's context
+ * - Slots support full composition patterns (components within components)
+ *
+ * **Comparison to Other Frameworks:**
+ *
+ * - React: Similar to `props.children` or render props pattern
+ * - Vue: Similar to Vue's `<slot>` system
+ * - Angular: Similar to `<ng-content>` projection
+ *
+ * **Best Practices:**
+ *
+ * 1. Use slots for reusable layout components (cards, modals, sections)
+ * 2. Prefer composition over complex prop-based configuration
+ * 3. Keep slotted components focused and single-purpose
+ * 4. Avoid deep nesting of slotted components for better performance
+ *
+ * **References:**
+ * @see {@link https://github.com/valdi-labs/valdi|Valdi Framework Documentation}
+ * @see DemoSection component for a real-world slot usage example
+ * @see $slot() compiler intrinsic for advanced render function patterns
  */
 
 import { StatefulComponent, Component } from 'valdi_core/src/Component';
@@ -229,13 +286,33 @@ export class DemoSection {
 // ============================================================================
 
 /**
- * Simple card with basic slot projection
+ * SimpleCard Component
+ *
+ * Demonstrates the most basic slot usage - a simple container that projects
+ * child content without any additional logic or styling variations.
+ *
+ * **Slot Usage:**
+ * The <slot /> element acts as a placeholder where all child elements passed
+ * to this component will be rendered.
+ *
+ * **Example:**
+ * ```typescript
+ * <SimpleCard>
+ *   <label value="This content appears in the slot" />
+ *   <label value="Multiple children work too!" />
+ * </SimpleCard>
+ * ```
+ *
+ * **Key Learning:**
+ * Slots enable component reuse - the same SimpleCard component can wrap
+ * different content in different contexts without modification.
  */
 interface SimpleCardViewModel {}
 
 class SimpleCard extends Component<SimpleCardViewModel> {
   onRender() {
     <view style={styles.simpleCard}>
+      {/* The <slot /> element projects all child content here */}
       <slot />
     </view>;
   }
@@ -243,7 +320,26 @@ class SimpleCard extends Component<SimpleCardViewModel> {
 
 
 /**
- * Info box with variant styling
+ * InfoBox Component
+ *
+ * Demonstrates slots with styling variations based on props. Shows how to
+ * combine slot-based content projection with prop-based configuration.
+ *
+ * **Pattern:**
+ * This component accepts a `variant` prop to determine styling (color, border),
+ * while the actual content is projected through the slot. This separates
+ * presentation logic (variant styling) from content (slot children).
+ *
+ * **Example:**
+ * ```typescript
+ * <InfoBox variant="success">
+ *   <label value="Operation completed!" />
+ * </InfoBox>
+ * ```
+ *
+ * **Best Practice:**
+ * This pattern is ideal for UI component libraries - the component handles
+ * styling and layout, while consumers provide the content.
  */
 interface InfoBoxViewModel {
   variant: 'info' | 'success' | 'warning' | 'error';
@@ -290,7 +386,26 @@ class InfoBox extends Component<InfoBoxViewModel> {
 }
 
 /**
- * Clickable card with tap handler
+ * ClickableCard Component
+ *
+ * Demonstrates combining slots with event handlers and interactivity.
+ * Shows how slot content can be part of an interactive component.
+ *
+ * **Pattern:**
+ * The component accepts an onTap callback prop and applies it to the wrapping
+ * view, making the entire card (including slotted content) tappable.
+ *
+ * **Example:**
+ * ```typescript
+ * <ClickableCard onTap={() => console.log('Tapped!')}>
+ *   <label value="Click me!" />
+ * </ClickableCard>
+ * ```
+ *
+ * **Key Learning:**
+ * Slots work seamlessly with event handlers - the slot content doesn't need
+ * to know it's inside an interactive container. This encapsulates interaction
+ * logic in the wrapper component.
  */
 interface ClickableCardViewModel {
   onTap: () => void;
@@ -302,13 +417,26 @@ class ClickableCard extends Component<ClickableCardViewModel> {
       style={styles.clickableCard}
       onTap={this.viewModel.onTap}
     >
+      {/* Slot content is part of the tappable area */}
       <slot />
     </view>;
   }
 }
 
 /**
- * Code example display
+ * CodeExample Component
+ *
+ * A non-slot component for displaying code snippets in the demo.
+ * Included here to show the difference between slot-based and prop-based components.
+ *
+ * **Why no slot?**
+ * This component doesn't use a slot because it needs to format and style the
+ * code string specifically. Using a `code` prop gives us control over the
+ * exact rendering, whereas a slot would allow arbitrary children.
+ *
+ * **When to use slots vs props:**
+ * - Use slots when content structure varies (different elements, nesting, etc.)
+ * - Use props when you need specific data types or validation
  */
 interface CodeExampleViewModel {
   code: string;

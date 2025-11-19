@@ -12,10 +12,19 @@ valdi_module(
         "//src/valdi_modules/src/valdi/valdi_tsx",
         "//src/valdi_modules/src/valdi/valdi_navigation",
         "//apps/kitchen_sink/modules/common",
+        # Implemented demos
         "//apps/kitchen_sink/modules/layouts_demo",
         "//apps/kitchen_sink/modules/text_demo",
         "//apps/kitchen_sink/modules/state_demo",
         "//apps/kitchen_sink/modules/animation_demo",
         "//apps/kitchen_sink/modules/slots_demo",
+        # Placeholder demos
+        "//apps/kitchen_sink/modules/images_demo",
+        "//apps/kitchen_sink/modules/scrolling_demo",
+        "//apps/kitchen_sink/modules/gestures_demo",
+        "//apps/kitchen_sink/modules/styling_demo",
+        "//apps/kitchen_sink/modules/shapes_demo",
+        "//apps/kitchen_sink/modules/forms_demo",
+        "//apps/kitchen_sink/modules/lists_demo",
     ],
 )
