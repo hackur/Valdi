@@ -1,0 +1,49 @@
+{
+  "name": "valdi-kitchen-sink",
+  "version": "1.0.0",
+  "description": "Comprehensive Valdi framework demonstration app showcasing all core features",
+  "license": "MIT",
+  "devDependencies": {
+    "@snap/eslint-plugin-valdi": "1.0.1",
+    "@types/eslint": "^9.6.1",
+    "@types/jasmine": "^5.1.7",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "@typescript-eslint/utils": "^6.21.0",
+    "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-rxjs": "^5.0.2",
+    "eslint-plugin-unused-imports": "^3.2.0",
+    "jasmine": "^5.6.0",
+    "ts-node": "^10.9.2",
+    "typescript": "5.3.3"
+  },
+  "scripts": {
+    "build": "./scripts/build.sh",
+    "build:ios": "./scripts/build.sh",
+    "clean": "./scripts/clean.sh",
+    "clean:deep": "./scripts/clean.sh --deep",
+    "dev": "./scripts/dev.sh",
+    "test:ios": "./scripts/test-ios.sh",
+    "verify": "./scripts/verify.sh",
+    "simulators": "./scripts/list-simulators.sh",
+    "lint": "eslint \"modules/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint \"modules/**/*.{ts,tsx}\" --fix",
+    "test": "echo 'Run tests with: bazel test //modules/...:test'",
+    "help": "echo '\n📱 Valdi Kitchen Sink - Available Commands:\n\n  npm run build        - Build iOS app\n  npm run dev          - Build and install to simulator\n  npm run test:ios     - Install to iOS Simulator\n  npm run verify       - Run build verification\n  npm run clean        - Clean build artifacts\n  npm run clean:deep   - Deep clean (removes cache)\n  npm run simulators   - List available iOS Simulators\n  npm run lint         - Run ESLint\n  npm run lint:fix     - Fix ESLint errors\n\nFor more details, see WORKFLOW.md\n'"
+  },
+  "keywords": [
+    "valdi",
+    "cross-platform",
+    "ios",
+    "android",
+    "ui-framework",
+    "demo"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/valdi-labs/valdi"
+  }
+}

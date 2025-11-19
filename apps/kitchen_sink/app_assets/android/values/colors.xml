@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary brand color for Kitchen Sink -->
+    <color name="primary">#4A90E2</color>
+    <color name="primary_dark">#357ABD</color>
+    <color name="accent">#50C878</color>
+
+    <!-- Background colors -->
+    <color name="background">#F5F7FA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="splash_bg">#FFFFFF</color>
+
+    <!-- Text colors -->
+    <color name="text_primary">#1A1A1A</color>
+    <color name="text_secondary">#6B7280</color>
+</resources>

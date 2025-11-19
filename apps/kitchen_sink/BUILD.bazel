@@ -1,0 +1,22 @@
+load("//bzl/valdi:valdi_application.bzl", "valdi_application")
+
+valdi_application(
+    name = "kitchen_sink",
+    android_activity_theme_name = "Theme.ValdiKitchenSink.Launch",
+    android_app_icon_name = "app_icon",
+    android_resource_files = glob(["app_assets/android/**"]),
+    ios_bundle_id = "com.valdi.kitchensink",
+    ios_families = ["iphone"],
+    root_component_path = "App@main_app/src/App",
+    title = "Valdi Kitchen Sink",
+    version = "1.0.0",
+    deps = [
+        "//apps/kitchen_sink/modules/main_app",
+        "//apps/kitchen_sink/modules/common",
+        "//apps/kitchen_sink/modules/layouts_demo",
+        "//apps/kitchen_sink/modules/text_demo",
+        "//apps/kitchen_sink/modules/state_demo",
+        "//apps/kitchen_sink/modules/animation_demo",
+        "//apps/kitchen_sink/modules/slots_demo",
+    ],
+)

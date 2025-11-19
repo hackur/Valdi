@@ -1,0 +1,43 @@
+# Bazel build outputs
+bazel-*
+
+# iOS build artifacts
+*.ipa
+*.app
+*.dSYM
+DerivedData/
+*.xcworkspace
+*.xcuserdata
+
+# Valdi compiler outputs
+*.valdi.js
+*.valdi.d.ts
+*.valdi.metadata.json
+
+# Node modules (if any)
+node_modules/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.log
+*.tmp
+tmp/
+temp/
+
+# Screenshots and test artifacts
+screenshots/
+*.png
+!modules/*/assets/*.png
+
+# Build summaries
+*_build_summary.md

@@ -1,0 +1,21 @@
+load("//bzl/valdi:valdi_module.bzl", "valdi_module")
+
+valdi_module(
+    name = "main_app",
+    srcs = glob([
+        "src/**/*.ts",
+        "src/**/*.tsx",
+    ]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "//src/valdi_modules/src/valdi/valdi_core",
+        "//src/valdi_modules/src/valdi/valdi_tsx",
+        "//src/valdi_modules/src/valdi/valdi_navigation",
+        "//apps/kitchen_sink/modules/common",
+        "//apps/kitchen_sink/modules/layouts_demo",
+        "//apps/kitchen_sink/modules/text_demo",
+        "//apps/kitchen_sink/modules/state_demo",
+        "//apps/kitchen_sink/modules/animation_demo",
+        "//apps/kitchen_sink/modules/slots_demo",
+    ],
+)
