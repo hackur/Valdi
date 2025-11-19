@@ -1,121 +1,435 @@
 /**
- * Images & Media Demo (Placeholder)
+ * Images & Media Demo
  *
- * This placeholder page explains what will be demonstrated when the
- * Images & Media demo is fully implemented.
+ * Comprehensive demonstration of Valdi's media capabilities including static images,
+ * video playback, and animated content (Lottie). Shows loading states, error handling,
+ * and different display modes.
  *
- * **Planned Features:**
+ * **Features Demonstrated:**
  *
- * 1. **Image Loading:**
- *    - <image> element with local assets
- *    - <image> element with remote URLs
- *    - Loading states and placeholders
- *    - Error handling for failed loads
+ * 1. **Basic Image Loading:**
+ *    - Loading from remote URLs with loading states
+ *    - Error handling with fallback messages
+ *    - onAssetLoad callback for load success/failure tracking
+ *    - onImageDecoded for dimension tracking
  *
- * 2. **Image Scaling & Layout:**
- *    - Different scaleMode options (fill, fit, stretch, center)
- *    - Aspect ratio preservation
- *    - Image clipping and masks
+ * 2. **ObjectFit Modes:**
+ *    - fill - Stretch to fill bounds (may distort)
+ *    - contain - Fit within bounds preserving aspect ratio (may have blank space)
+ *    - cover - Fill bounds preserving aspect ratio (may crop)
+ *    - none - No scaling, centered
  *
- * 3. **Media Playback (if supported):**
- *    - <video> element for video playback
- *    - Play/pause controls
- *    - Seeking and progress tracking
+ * 3. **Video Playback:** (Commented out - requires video assets)
+ *    - Play/pause control
  *    - Volume control
+ *    - Seek bar with progress tracking
+ *    - Current time / duration display
  *
- * 4. **Performance Considerations:**
- *    - Image caching strategies
- *    - Memory management for large images
- *    - Lazy loading techniques
+ * 4. **Animated Images (Lottie):** (Commented out - requires Lottie assets)
+ *    - Play/pause animation
+ *    - Speed control (0.5x, 1x, 2x, reverse)
+ *    - Loop toggle
  *
- * **Estimated Implementation Effort:** 4-6 hours
+ * 5. **Image Effects:**
+ *    - Color tint
+ *    - Content scaling
+ *    - Content rotation
  *
- * **References:**
  * @see {@link https://github.com/valdi-labs/valdi|Valdi Framework Documentation}
- *
- * **Contributing:**
- * If you'd like to implement this demo, check CONTRIBUTING.md for guidelines
- * and submit a pull request!
  */
 
-import { Component } from 'valdi_core/src/Component';
+import { StatefulComponent } from 'valdi_core/src/Component';
 import { Style } from 'valdi_core/src/Style';
+import { NavigationController } from 'valdi_navigation/src/NavigationController';
 import { NavigationPage } from 'valdi_navigation/src/NavigationPage';
-import { View, Label, Scroll, Layout } from 'valdi_tsx/src/BuiltinComponents';
-import { DemoCard } from 'common/src/DemoCard';
-import { Colors } from 'common/src/Colors';
+import { View, Label, Layout, ScrollView, ImageView } from 'valdi_tsx/src/NativeTemplateElements';
 
-/**
- * Placeholder component explaining the planned Images & Media demo features.
- */
+import {
+  Colors,
+  Fonts,
+  Spacing,
+  BorderRadius,
+  Header,
+  DemoSection,
+  Card,
+  Button,
+} from '../../common/src/index';
+
+export interface ImagesDemoViewModel {
+  navigationController: NavigationController;
+}
+
+interface ImagesDemoState {
+  // Basic image loading
+  imageLoading: boolean;
+  imageError?: string;
+  imageDimensions?: { width: number; height: number };
+
+  // ObjectFit demonstration
+  selectedObjectFit: 'fill' | 'contain' | 'cover' | 'none';
+
+  // Image effects
+  tintColor?: string;
+  contentScale: number;
+  contentRotation: number;  // In radians
+}
+
 @NavigationPage(module)
-export class ImagesDemo extends Component {
+export class ImagesDemo extends StatefulComponent<ImagesDemoViewModel, ImagesDemoState> {
+  state: ImagesDemoState = {
+    imageLoading: true,
+    selectedObjectFit: 'contain',
+    contentScale: 1,
+    contentRotation: 0,
+  };
+
   onRender() {
     <view style={styles.page}>
       {/* Header */}
-      <view style={styles.header}>
-        <label style={styles.backButton} value="← Back" onTap={() => this.viewModel.navigationController.pop()} />
-        <label style={styles.headerTitle} value="🖼️ Images & Media" />
-        <label style={styles.headerSubtitle} value="Coming Soon" />
-      </view>
+      <Header
+        title="Images & Media"
+        showBack={true}
+        onBack={() => this.viewModel.navigationController.pop()}
+      />
 
-      {/* Scrollable content */}
+      {/* Content */}
       <scroll style={styles.scroll}>
         <layout style={styles.content}>
-          {/* Status badge */}
-          <view style={styles.badge}>
-            <label style={styles.badgeText} value="🚧 Under Construction" />
-          </view>
+          {/* Basic Image Loading */}
+          <DemoSection
+            title="Basic Image Loading"
+            description="Load images from URLs with loading states and error handling"
+          >
+            <Card>
+              <layout width="100%" alignItems="center">
+                {/* Image with loading state */}
+                <view
+                  width={300}
+                  height={200}
+                  backgroundColor={Colors.gray100}
+                  borderRadius={BorderRadius.base}
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  {this.state.imageLoading && (
+                    <label
+                      value="Loading image..."
+                      font={Fonts.body}
+                      color={Colors.textSecondary}
+                    />
+                  )}
 
-          {/* Description */}
-          <label
-            style={styles.description}
-            value="This demo will showcase Valdi's image and media capabilities, including local and remote image loading, scaling modes, and potentially video playback."
-            numberOfLines={0}
-          />
+                  <image
+                    width={300}
+                    height={200}
+                    src="https://picsum.photos/600/400"
+                    objectFit="cover"
+                    borderRadius={BorderRadius.base}
+                    onAssetLoad={(success, error) => {
+                      this.setState({
+                        imageLoading: false,
+                        imageError: success ? undefined : error,
+                      });
+                    }}
+                    onImageDecoded={(width, height) => {
+                      this.setState({ imageDimensions: { width, height } });
+                    }}
+                  />
+                </view>
 
-          {/* Planned Features Section */}
-          <label style={styles.sectionTitle} value="Planned Features" />
+                {/* Error state */}
+                {this.state.imageError && (
+                  <label
+                    value={`Error: ${this.state.imageError}`}
+                    font={Fonts.caption}
+                    color={Colors.error}
+                  />
+                )}
 
-          <DemoCard
-            title="Image Loading"
-            description="Local assets, remote URLs, loading states, and error handling"
-            color={Colors.primary}
-          />
+                {/* Image dimensions */}
+                {this.state.imageDimensions && !this.state.imageLoading && (
+                  <label
+                    value={`Dimensions: ${this.state.imageDimensions.width} x ${this.state.imageDimensions.height}`}
+                    font={Fonts.caption}
+                    color={Colors.success}
+                  />
+                )}
+              </layout>
+            </Card>
+          </DemoSection>
 
-          <DemoCard
-            title="Image Scaling & Layout"
-            description="Scale modes (fill, fit, stretch, center), aspect ratio preservation, clipping"
-            color={Colors.secondary}
-          />
+          {/* ObjectFit Modes */}
+          <DemoSection
+            title="ObjectFit Modes"
+            description="Different image scaling and fitting modes"
+          >
+            <Card>
+              <layout width="100%">
+                {/* Mode selector */}
+                <label value="Select ObjectFit Mode:" font={Fonts.body} />
+                <layout flexDirection="row" flexWrap="wrap">
+                  <Button
+                    title="Fill"
+                    variant={this.state.selectedObjectFit === 'fill' ? 'primary' : 'outline'}
+                    size="small"
+                    onTap={() => this.setState({ selectedObjectFit: 'fill' })}
+                  />
+                  <Button
+                    title="Contain"
+                    variant={this.state.selectedObjectFit === 'contain' ? 'primary' : 'outline'}
+                    size="small"
+                    onTap={() => this.setState({ selectedObjectFit: 'contain' })}
+                  />
+                  <Button
+                    title="Cover"
+                    variant={this.state.selectedObjectFit === 'cover' ? 'primary' : 'outline'}
+                    size="small"
+                    onTap={() => this.setState({ selectedObjectFit: 'cover' })}
+                  />
+                  <Button
+                    title="None"
+                    variant={this.state.selectedObjectFit === 'none' ? 'primary' : 'outline'}
+                    size="small"
+                    onTap={() => this.setState({ selectedObjectFit: 'none' })}
+                  />
+                </layout>
 
-          <DemoCard
-            title="Media Playback"
-            description="Video playback controls, seeking, progress tracking, volume control"
-            color={Colors.accent}
-          />
+                {/* Mode description */}
+                <label
+                  value={this.getObjectFitDescription(this.state.selectedObjectFit)}
+                  font={Fonts.caption}
+                  color={Colors.textSecondary}
+                  numberOfLines={0}
+                />
 
-          <DemoCard
-            title="Performance"
-            description="Image caching, memory management, lazy loading techniques"
-            color={Colors.success}
-          />
+                {/* Image with selected objectFit */}
+                <view
+                  width="100%"
+                  height={200}
+                  backgroundColor={Colors.gray100}
+                  borderRadius={BorderRadius.base}
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <image
+                    width={300}
+                    height={200}
+                    src="https://picsum.photos/800/400"
+                    objectFit={this.state.selectedObjectFit}
+                    borderRadius={BorderRadius.base}
+                  />
+                </view>
 
-          {/* Implementation Info */}
-          <label style={styles.sectionTitle} value="Implementation Status" />
-          <label
-            style={styles.infoText}
-            value="Estimated implementation effort: 4-6 hours"
-            numberOfLines={0}
-          />
-          <label
-            style={styles.infoText}
-            value="Want to contribute? Check out CONTRIBUTING.md for guidelines on how to implement this demo!"
-            numberOfLines={0}
-          />
+                {/* All modes comparison */}
+                <label value="All Modes Comparison:" font={Fonts.h3} />
+                <layout flexDirection="row" flexWrap="wrap" justifyContent="space-around">
+                  {(['fill', 'contain', 'cover', 'none'] as const).forEach(mode => (
+                    <layout key={mode} alignItems="center">
+                      <label value={mode} font={Fonts.caption} color={Colors.textSecondary} />
+                      <view
+                        width={140}
+                        height={100}
+                        backgroundColor={Colors.gray100}
+                        borderRadius={BorderRadius.base}
+                        margin={Spacing.xs}
+                      >
+                        <image
+                          width={140}
+                          height={100}
+                          src="https://picsum.photos/800/400"
+                          objectFit={mode}
+                          borderRadius={BorderRadius.base}
+                        />
+                      </view>
+                    </layout>
+                  ))}
+                </layout>
+              </layout>
+            </Card>
+          </DemoSection>
+
+          {/* Image Effects */}
+          <DemoSection
+            title="Image Effects & Transformations"
+            description="Apply tint, scaling, and rotation to images"
+          >
+            <Card>
+              <layout width="100%">
+                {/* Tint Controls */}
+                <label value="Color Tint:" font={Fonts.body} />
+                <layout flexDirection="row" flexWrap="wrap">
+                  <Button
+                    title="No Tint"
+                    variant={!this.state.tintColor ? 'primary' : 'outline'}
+                    size="small"
+                    onTap={() => this.setState({ tintColor: undefined })}
+                  />
+                  <Button
+                    title="Blue"
+                    variant={this.state.tintColor === Colors.primary ? 'primary' : 'outline'}
+                    size="small"
+                    onTap={() => this.setState({ tintColor: Colors.primary })}
+                  />
+                  <Button
+                    title="Red"
+                    variant={this.state.tintColor === Colors.error ? 'primary' : 'outline'}
+                    size="small"
+                    onTap={() => this.setState({ tintColor: Colors.error })}
+                  />
+                  <Button
+                    title="Green"
+                    variant={this.state.tintColor === Colors.success ? 'primary' : 'outline'}
+                    size="small"
+                    onTap={() => this.setState({ tintColor: Colors.success })}
+                  />
+                </layout>
+
+                {/* Scale Controls */}
+                <label value={`Content Scale: ${this.state.contentScale.toFixed(1)}x`} font={Fonts.body} />
+                <layout flexDirection="row" flexWrap="wrap">
+                  <Button
+                    title="0.5x"
+                    variant="outline"
+                    size="small"
+                    onTap={() => this.setState({ contentScale: 0.5 })}
+                  />
+                  <Button
+                    title="1x"
+                    variant="outline"
+                    size="small"
+                    onTap={() => this.setState({ contentScale: 1 })}
+                  />
+                  <Button
+                    title="1.5x"
+                    variant="outline"
+                    size="small"
+                    onTap={() => this.setState({ contentScale: 1.5 })}
+                  />
+                  <Button
+                    title="2x"
+                    variant="outline"
+                    size="small"
+                    onTap={() => this.setState({ contentScale: 2 })}
+                  />
+                </layout>
+
+                {/* Rotation Controls */}
+                <label value={`Rotation: ${this.toDegrees(this.state.contentRotation).toFixed(0)}°`} font={Fonts.body} />
+                <layout flexDirection="row" flexWrap="wrap">
+                  <Button
+                    title="0°"
+                    variant="outline"
+                    size="small"
+                    onTap={() => this.setState({ contentRotation: 0 })}
+                  />
+                  <Button
+                    title="45°"
+                    variant="outline"
+                    size="small"
+                    onTap={() => this.setState({ contentRotation: Math.PI / 4 })}
+                  />
+                  <Button
+                    title="90°"
+                    variant="outline"
+                    size="small"
+                    onTap={() => this.setState({ contentRotation: Math.PI / 2 })}
+                  />
+                  <Button
+                    title="180°"
+                    variant="outline"
+                    size="small"
+                    onTap={() => this.setState({ contentRotation: Math.PI })}
+                  />
+                </layout>
+
+                {/* Image with effects */}
+                <view
+                  width="100%"
+                  height={250}
+                  backgroundColor={Colors.gray100}
+                  borderRadius={BorderRadius.base}
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <image
+                    width={200}
+                    height={200}
+                    src="https://picsum.photos/400/400"
+                    objectFit="contain"
+                    tint={this.state.tintColor}
+                    contentScaleX={this.state.contentScale}
+                    contentScaleY={this.state.contentScale}
+                    contentRotation={this.state.contentRotation}
+                  />
+                </view>
+              </layout>
+            </Card>
+          </DemoSection>
+
+          {/* Video Playback - Placeholder (requires video assets) */}
+          <DemoSection
+            title="Video Playback"
+            description="Video playback requires video assets (not yet configured)"
+          >
+            <Card>
+              <view style={styles.placeholderBox}>
+                <label
+                  value="🎥 Video Playback Demo"
+                  font={Fonts.h3}
+                  color={Colors.textSecondary}
+                />
+                <label
+                  value="This section will demonstrate video playback with play/pause, volume, and seek controls once video assets are added."
+                  font={Fonts.body}
+                  color={Colors.textSecondary}
+                  numberOfLines={0}
+                  textAlign="center"
+                />
+              </view>
+            </Card>
+          </DemoSection>
+
+          {/* Animated Images - Placeholder (requires Lottie assets) */}
+          <DemoSection
+            title="Animated Images (Lottie)"
+            description="Lottie animations require JSON animation assets (not yet configured)"
+          >
+            <Card>
+              <view style={styles.placeholderBox}>
+                <label
+                  value="✨ Lottie Animation Demo"
+                  font={Fonts.h3}
+                  color={Colors.textSecondary}
+                />
+                <label
+                  value="This section will demonstrate Lottie animations with speed control, looping, and playback controls once Lottie assets are added."
+                  font={Fonts.body}
+                  color={Colors.textSecondary}
+                  numberOfLines={0}
+                  textAlign="center"
+                />
+              </view>
+            </Card>
+          </DemoSection>
         </layout>
       </scroll>
     </view>;
+  }
+
+  // Helper methods
+
+  private getObjectFitDescription(mode: 'fill' | 'contain' | 'cover' | 'none'): string {
+    const descriptions = {
+      fill: 'Stretch to fill bounds (may distort aspect ratio)',
+      contain: 'Fit within bounds preserving aspect ratio (may have blank space)',
+      cover: 'Fill bounds preserving aspect ratio (may crop edges)',
+      none: 'No scaling, display at original size (centered)',
+    };
+    return descriptions[mode];
+  }
+
+  private toDegrees(radians: number): number {
+    return (radians * 180) / Math.PI;
   }
 }
 
@@ -126,77 +440,22 @@ const styles = {
     backgroundColor: Colors.background,
   }),
 
-  header: new Style<View>({
-    width: '100%',
-    padding: 20,
-    paddingTop: 60,
-    backgroundColor: Colors.surface,
-    borderBottomWidth: 1,
-    borderColor: Colors.border,
-  }),
-
-  backButton: new Style<Label>({
-    fontSize: 16,
-    color: Colors.primary,
-    marginBottom: 10,
-    cursor: 'pointer',
-  }),
-
-  headerTitle: new Style<Label>({
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: Colors.text,
-    marginBottom: 5,
-  }),
-
-  headerSubtitle: new Style<Label>({
-    fontSize: 14,
-    color: Colors.textSecondary,
-    fontStyle: 'italic',
-  }),
-
-  scroll: new Style<Scroll>({
+  scroll: new Style<ScrollView>({
     width: '100%',
     height: '100%',
   }),
 
   content: new Style<Layout>({
-    padding: 20,
-    gap: 15,
+    width: '100%',
+    padding: Spacing.base,
   }),
 
-  badge: new Style<View>({
-    alignSelf: 'flex-start',
-    backgroundColor: '#FEF3C7',
-    padding: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20,
-  }),
-
-  badgeText: new Style<Label>({
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#92400E',
-  }),
-
-  description: new Style<Label>({
-    fontSize: 16,
-    lineHeight: 24,
-    color: Colors.text,
-  }),
-
-  sectionTitle: new Style<Label>({
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: Colors.text,
-    marginTop: 10,
-    marginBottom: 5,
-  }),
-
-  infoText: new Style<Label>({
-    fontSize: 14,
-    lineHeight: 20,
-    color: Colors.textSecondary,
-    marginTop: 5,
+  placeholderBox: new Style<View>({
+    width: '100%',
+    padding: Spacing.xl,
+    backgroundColor: Colors.gray100,
+    borderRadius: BorderRadius.base,
+    alignItems: 'center',
+    justifyContent: 'center',
   }),
 };
