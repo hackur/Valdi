@@ -564,15 +564,15 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
 
   private toggleItemComplete(id: string) {
     this.setState({
-      items: this.state.items.map(((item) =>
+      items: this.state.items.map((item) =>
         item.id === id ? { ...item, completed: !item.completed } : item
-      ),
+      )
     });
   }
 
   private markAllComplete(completed: boolean) {
     this.setState({
-      items: this.state.items.map(((item) => ({ ...item, completed })),
+      items: this.state.items.map((item) => ({ ...item, completed }))
     });
   }
 
