@@ -209,7 +209,7 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
                     height={40}
                     value={this.state.searchQuery}
                     placeholder="Type to search..."
-                    onChange={(event) => this.setState({ searchQuery: event.value })}
+                    onChange={(event) => this.setState({ searchQuery: event.text })}
                     style={styles.input}
                   />
                 </layout>
