@@ -240,7 +240,7 @@ export class ShapesDemo extends StatefulComponent<ShapesDemoViewModel, ShapesDem
                     <layout flexDirection="row" flexWrap="wrap">
                       {[1, 2, 4, 8, 12].map((width) => (
                         <Button
-                          key={width}
+                          key={`${width}`}
                           title={`${width}px`}
                           variant={this.state.strokeWidth === width ? 'primary' : 'outline'}
                           size="small"
