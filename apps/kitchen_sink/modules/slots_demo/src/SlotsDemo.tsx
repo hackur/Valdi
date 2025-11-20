@@ -17,7 +17,7 @@
  * class Card extends Component {
  *   onRender() {
  *     <view style={cardStyle}>
- *       <slot /> {/* Child content renders here */}
+ *       <slot />
  *     </view>;
  *   }
  * }
