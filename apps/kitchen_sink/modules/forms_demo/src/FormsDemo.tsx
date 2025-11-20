@@ -145,7 +145,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   value={this.state.name}
                   placeholder="Enter your name"
                   contentType="default"
-                  onChange={(e) => this.setState({ name: e.value })}
+                  onChange={(e) => this.setState({ name: e.text })}
                   style={styles.input}
                 />
 
@@ -156,7 +156,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   contentType="email"
                   autoCapitalize="none"
                   autoCorrect={false}
-                  onChange={(e) => this.setState({ email: e.value })}
+                  onChange={(e) => this.setState({ email: e.text })}
                   style={styles.input}
                 />
 
@@ -165,7 +165,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   value={this.state.phone}
                   placeholder="(555) 123-4567"
                   contentType="phoneNumber"
-                  onChange={(e) => this.setState({ phone: e.value })}
+                  onChange={(e) => this.setState({ phone: e.text })}
                   style={styles.input}
                 />
 
@@ -175,7 +175,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   placeholder="Enter password"
                   contentType="password"
                   secureTextEntry={true}
-                  onChange={(e) => this.setState({ password: e.value })}
+                  onChange={(e) => this.setState({ password: e.text })}
                   style={styles.input}
                 />
 
@@ -185,7 +185,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   placeholder="https://example.com"
                   contentType="url"
                   autoCapitalize="none"
-                  onChange={(e) => this.setState({ website: e.value })}
+                  onChange={(e) => this.setState({ website: e.text })}
                   style={styles.input}
                 />
 
@@ -194,7 +194,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   value={this.state.age}
                   placeholder="25"
                   contentType="number"
-                  onChange={(e) => this.setState({ age: e.value })}
+                  onChange={(e) => this.setState({ age: e.text })}
                   style={styles.input}
                 />
 
@@ -202,7 +202,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                 <textview
                   value={this.state.bio}
                   placeholder="Tell us about yourself..."
-                  onChange={(e) => this.setState({ bio: e.value })}
+                  onChange={(e) => this.setState({ bio: e.text })}
                   style={styles.textarea}
                 />
               </layout>
@@ -222,7 +222,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   placeholder="email@example.com"
                   contentType="email"
                   autoCapitalize="none"
-                  onChange={(e) => this.handleEmailValidation(e.value)}
+                  onChange={(e) => this.handleEmailValidation(e.text)}
                   style={{
                     ...styles.input,
                     borderWidth: 1,
@@ -251,7 +251,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   maxLength={20}
                   autoCapitalize="none"
                   onWillChange={(e) => this.handleUsernameWillChange(e)}
-                  onChange={(e) => this.handleUsernameChange(e.value)}
+                  onChange={(e) => this.handleUsernameChange(e.text)}
                   style={{
                     ...styles.input,
                     borderWidth: 1,
@@ -287,7 +287,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   placeholder="John"
                   returnKeyText="next"
                   onReturn={() => this.handleReturn('firstName')}
-                  onChange={(e) => this.setState({ firstName: e.value })}
+                  onChange={(e) => this.setState({ firstName: e.text })}
                   onEditBegin={(e) => this.setState({ currentFocus: 'firstName' })}
                   style={styles.input}
                 />
@@ -298,7 +298,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   placeholder="Doe"
                   returnKeyText="next"
                   onReturn={() => this.handleReturn('lastName')}
-                  onChange={(e) => this.setState({ lastName: e.value })}
+                  onChange={(e) => this.setState({ lastName: e.text })}
                   onEditBegin={(e) => this.setState({ currentFocus: 'lastName' })}
                   style={styles.input}
                 />
@@ -308,8 +308,8 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   value={this.state.searchQuery}
                   placeholder="Search..."
                   returnKeyText="search"
-                  onReturn={(e) => this.handleSearch(e.value)}
-                  onChange={(e) => this.setState({ searchQuery: e.value })}
+                  onReturn={(e) => this.handleSearch(e.text)}
+                  onChange={(e) => this.setState({ searchQuery: e.text })}
                   onEditBegin={(e) => this.setState({ currentFocus: 'search' })}
                   style={styles.input}
                 />
@@ -356,7 +356,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                       value={this.state.formFirstName}
                       placeholder="John"
                       returnKeyText="next"
-                      onChange={(e) => this.setState({ formFirstName: e.value })}
+                      onChange={(e) => this.setState({ formFirstName: e.text })}
                       style={this.getFormInputStyle('formFirstName')}
                     />
                     {this.state.formErrors.formFirstName && (
@@ -372,7 +372,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                       value={this.state.formLastName}
                       placeholder="Doe"
                       returnKeyText="next"
-                      onChange={(e) => this.setState({ formLastName: e.value })}
+                      onChange={(e) => this.setState({ formLastName: e.text })}
                       style={this.getFormInputStyle('formLastName')}
                     />
                     {this.state.formErrors.formLastName && (
@@ -390,7 +390,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                       contentType="email"
                       autoCapitalize="none"
                       returnKeyText="next"
-                      onChange={(e) => this.setState({ formEmail: e.value })}
+                      onChange={(e) => this.setState({ formEmail: e.text })}
                       style={this.getFormInputStyle('formEmail')}
                     />
                     {this.state.formErrors.formEmail && (
@@ -407,7 +407,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                       placeholder="(555) 123-4567"
                       contentType="phoneNumber"
                       returnKeyText="next"
-                      onChange={(e) => this.setState({ formPhone: e.value })}
+                      onChange={(e) => this.setState({ formPhone: e.text })}
                       style={styles.input}
                     />
 
@@ -418,7 +418,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                       contentType="password"
                       secureTextEntry={true}
                       returnKeyText="next"
-                      onChange={(e) => this.setState({ formPassword: e.value })}
+                      onChange={(e) => this.setState({ formPassword: e.text })}
                       style={this.getFormInputStyle('formPassword')}
                     />
                     {this.state.formErrors.formPassword && (
@@ -436,7 +436,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                       contentType="password"
                       secureTextEntry={true}
                       returnKeyText="done"
-                      onChange={(e) => this.setState({ formConfirmPassword: e.value })}
+                      onChange={(e) => this.setState({ formConfirmPassword: e.text })}
                       style={this.getFormInputStyle('formConfirmPassword')}
                     />
                     {this.state.formErrors.formConfirmPassword && (
@@ -503,8 +503,8 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
   }
 
   private handleUsernameWillChange(event: EditTextEvent): EditTextEvent | undefined {
-    const sanitized = event.value.replace(/[^a-zA-Z0-9_]/g, '');
-    if (sanitized !== event.value) {
+    const sanitized = event.text.replace(/[^a-zA-Z0-9_]/g, '');
+    if (sanitized !== event.text) {
       return { ...event, value: sanitized };
     }
     return undefined;
