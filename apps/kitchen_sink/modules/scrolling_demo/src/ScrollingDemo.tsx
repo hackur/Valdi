@@ -50,11 +50,6 @@ import {
   Label,
   Layout,
   ScrollView,
-  ScrollEvent,
-  ScrollEndEvent,
-  ScrollDragEndingEvent,
-  ScrollDragEndEvent,
-  ScrollOffset,
 } from 'valdi_tsx/src/NativeTemplateElements';
 
 import {
