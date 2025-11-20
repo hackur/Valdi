@@ -52,11 +52,6 @@ import {
   Label,
   Layout,
   ScrollView,
-  TouchEvent,
-  TouchEventState,
-  DragEvent,
-  PinchEvent,
-  RotateEvent,
 } from 'valdi_tsx/src/NativeTemplateElements';
 
 import {
