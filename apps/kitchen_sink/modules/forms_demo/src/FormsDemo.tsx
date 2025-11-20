@@ -154,8 +154,6 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   value={this.state.email}
                   placeholder="email@example.com"
                   contentType="email"
-                  autoCapitalize="none"
-                  autoCorrect={false}
                   onChange={(e) => this.setState({ email: e.text })}
                   style={styles.input}
                 />
@@ -174,7 +172,6 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   value={this.state.password}
                   placeholder="Enter password"
                   contentType="password"
-                  secureTextEntry={true}
                   onChange={(e) => this.setState({ password: e.text })}
                   style={styles.input}
                 />
@@ -184,7 +181,6 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   value={this.state.website}
                   placeholder="https://example.com"
                   contentType="url"
-                  autoCapitalize="none"
                   onChange={(e) => this.setState({ website: e.text })}
                   style={styles.input}
                 />
@@ -221,17 +217,8 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                   value={this.state.email}
                   placeholder="email@example.com"
                   contentType="email"
-                  autoCapitalize="none"
                   onChange={(e) => this.handleEmailValidation(e.text)}
-                  style={{
-                    ...styles.input,
-                    borderWidth: 1,
-                    borderColor: this.state.emailError
-                      ? Colors.error
-                      : this.state.emailValid && this.state.email
-                      ? Colors.success
-                      : Colors.gray300,
-                  }}
+                  style={styles.input}
                 />
                 {this.state.emailError && (
                   <label
@@ -248,15 +235,9 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                 <textfield
                   value={this.state.usernameValue}
                   placeholder="john_doe123"
-                  maxLength={20}
-                  autoCapitalize="none"
                   onWillChange={(e) => this.handleUsernameWillChange(e)}
                   onChange={(e) => this.handleUsernameChange(e.text)}
-                  style={{
-                    ...styles.input,
-                    borderWidth: 1,
-                    borderColor: this.state.usernameError ? Colors.error : Colors.gray300,
-                  }}
+                  style={styles.input}
                 />
                 {this.state.usernameError && (
                   <label
@@ -388,7 +369,6 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                       value={this.state.formEmail}
                       placeholder="john@example.com"
                       contentType="email"
-                      autoCapitalize="none"
                       returnKeyText="next"
                       onChange={(e) => this.setState({ formEmail: e.text })}
                       style={this.getFormInputStyle('formEmail')}
@@ -416,7 +396,6 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                       value={this.state.formPassword}
                       placeholder="••••••••"
                       contentType="password"
-                      secureTextEntry={true}
                       returnKeyText="next"
                       onChange={(e) => this.setState({ formPassword: e.text })}
                       style={this.getFormInputStyle('formPassword')}
@@ -434,7 +413,6 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
                       value={this.state.formConfirmPassword}
                       placeholder="••••••••"
                       contentType="password"
-                      secureTextEntry={true}
                       returnKeyText="done"
                       onChange={(e) => this.setState({ formConfirmPassword: e.text })}
                       style={this.getFormInputStyle('formConfirmPassword')}
@@ -505,7 +483,7 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
   private handleUsernameWillChange(event: EditTextEvent): EditTextEvent | undefined {
     const sanitized = event.text.replace(/[^a-zA-Z0-9_]/g, '');
     if (sanitized !== event.text) {
-      return { ...event, value: sanitized };
+      return { ...event, text: sanitized };
     }
     return undefined;
   }
@@ -620,12 +598,9 @@ export class FormsDemo extends StatefulComponent<FormsDemoViewModel, FormsDemoSt
   }
 
   private getFormInputStyle(field: string) {
-    const hasError = !!this.state.formErrors[field];
-    return {
-      ...styles.input,
-      borderWidth: 1,
-      borderColor: hasError ? Colors.error : Colors.gray300,
-    };
+    // TextField doesn't support border styling, so we just return the base style
+    // Validation errors are shown via the error label below each field
+    return styles.input;
   }
 }
 
@@ -648,10 +623,7 @@ const styles = {
 
   input: new Style<TextField>({
     width: '100%',
-    padding: Spacing.base,
     backgroundColor: Colors.surface,
-    borderRadius: BorderRadius.sm,
-    marginBottom: Spacing.xs,
     font: Fonts.body,
     color: Colors.textPrimary,
   }),
@@ -659,10 +631,7 @@ const styles = {
   textarea: new Style<TextView>({
     width: '100%',
     height: 100,
-    padding: Spacing.base,
     backgroundColor: Colors.surface,
-    borderRadius: BorderRadius.sm,
-    marginBottom: Spacing.xs,
     font: Fonts.body,
     color: Colors.textPrimary,
   }),

@@ -170,7 +170,7 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
                       />
                     </view>
                   ) : (
-                    this.state.items.forEach((item) => (
+                    this.state.items.map((item) => (
                       <view key={item.id} style={styles.listItem}>
                         <layout width="100%">
                           <label value={item.title} font={Fonts.label} />
@@ -264,7 +264,7 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
                       />
                     </view>
                   ) : (
-                    filteredItems.forEach((item) => (
+                    filteredItems.map((item) => (
                       <view key={item.id} style={styles.listItem}>
                         <layout width="100%">
                           <label value={item.title} font={Fonts.label} />
@@ -333,7 +333,7 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
 
                 {/* Sorted list */}
                 <layout width="100%">
-                  {filteredItems.forEach((item, index) => (
+                  {filteredItems.map((item, index) => (
                     <view key={item.id} style={styles.listItem}>
                       <label
                         value={`#${index + 1}`}
@@ -392,7 +392,7 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
                 <view style={styles.largeListContainer}>
                   <scroll style={styles.largeListScroll}>
                     <layout width="100%">
-                      {displayedLargeList.forEach((item, index) => (
+                      {displayedLargeList.map((item, index) => (
                         <view key={item.id} style={styles.compactListItem}>
                           <label
                             value={`${index + 1}. ${item.title}`}
@@ -474,7 +474,7 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
 
                 {/* List with completion status */}
                 <layout width="100%">
-                  {this.state.items.forEach((item) => (
+                  {this.state.items.map((item) => (
                     <view key={item.id} style={styles.listItem}>
                       <layout flexDirection="row" alignItems="center">
                         <view
@@ -496,7 +496,6 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
                             value={item.title}
                             font={Fonts.body}
                             color={item.completed ? Colors.textSecondary : Colors.textPrimary}
-                            textDecoration={item.completed ? 'line-through' : 'none'}
                           />
                         </layout>
                       </layout>
@@ -565,7 +564,7 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
 
   private toggleItemComplete(id: string) {
     this.setState({
-      items: this.state.items.map((item) =>
+      items: this.state.items.map(((item) =>
         item.id === id ? { ...item, completed: !item.completed } : item
       ),
     });
@@ -573,7 +572,7 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
 
   private markAllComplete(completed: boolean) {
     this.setState({
-      items: this.state.items.map((item) => ({ ...item, completed })),
+      items: this.state.items.map(((item) => ({ ...item, completed })),
     });
   }
 
@@ -697,8 +696,10 @@ export class ListsDemo extends StatefulComponent<ListsDemoViewModel, ListsDemoSt
     };
 
     return new Style<View>({
-      paddingHorizontal: Spacing.xs,
-      paddingVertical: 2,
+      paddingLeft: Spacing.xs,
+      paddingRight: Spacing.xs,
+      paddingTop: 2,
+      paddingBottom: 2,
       borderRadius: BorderRadius.sm,
       backgroundColor: colors[category],
       alignSelf: 'flex-start',
@@ -737,8 +738,6 @@ const styles = {
     borderWidth: 1,
     borderColor: Colors.gray300,
     borderRadius: BorderRadius.base,
-    paddingHorizontal: Spacing.sm,
-    fontSize: 16,
   }),
 
   listItem: new Style<View>({
@@ -757,7 +756,7 @@ const styles = {
     width: '100%',
     padding: Spacing.xs,
     backgroundColor: Colors.white,
-    borderBottomWidth: 1,
+    borderWidth: 1,
     borderColor: Colors.gray100,
   }),
 
@@ -789,7 +788,7 @@ const styles = {
     padding: Spacing.sm,
     backgroundColor: Colors.gray50,
     borderRadius: BorderRadius.base,
-    borderLeftWidth: 3,
+    borderWidth: 3,
     borderColor: Colors.primary,
   }),
 

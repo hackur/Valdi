@@ -193,7 +193,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
                 <layout flexDirection="row" flexWrap="wrap" justifyContent="space-around">
                   {[1, 2, 3, 4, 5].map((elevation) => (
                     <view
-                      key={elevation}
+                      key={`${elevation}`}
                       width={60}
                       height={60}
                       backgroundColor={Colors.surface}
@@ -402,7 +402,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
                 <layout flexDirection="row" flexWrap="wrap">
                   {[0, 0.25, 0.5, 0.75, 1].map((op) => (
                     <Button
-                      key={op}
+                      key={`${op}`}
                       title={`${(op * 100).toFixed(0)}%`}
                       variant={this.state.opacity === op ? 'primary' : 'outline'}
                       size="small"
@@ -534,7 +534,7 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
   // Gradient helpers
 
   private getGradient(type: string): string {
-    const gradients = {
+    const gradients: { [key: string]: string } = {
       sunset: 'linear-gradient(#FF6B6B, #FFD93D, #6BCF7F)',
       ocean: 'linear-gradient(#667EEA 0%, #764BA2 100%)',
       forest: 'linear-gradient(#134E5E, #71B280)',

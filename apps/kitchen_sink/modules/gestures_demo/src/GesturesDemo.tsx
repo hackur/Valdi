@@ -53,6 +53,13 @@ import {
   Layout,
   ScrollView,
 } from 'valdi_tsx/src/NativeTemplateElements';
+import {
+  TouchEvent,
+  TouchEventState,
+  DragEvent,
+  PinchEvent,
+  RotateEvent,
+} from 'valdi_tsx/src/GestureEvents';
 
 import {
   Colors,
@@ -606,8 +613,12 @@ export class GesturesDemo extends StatefulComponent<GesturesDemoViewModel, Gestu
   // Combined gesture handlers
 
   private handleCombinedDrag(event: DragEvent) {
+    // Accumulate drag deltas for smooth dragging
     this.setState({
-      combinedPosition: { x: event.deltaX, y: event.deltaY },
+      combinedPosition: {
+        x: this.state.combinedPosition.x + event.deltaX,
+        y: this.state.combinedPosition.y + event.deltaY,
+      },
     });
   }
 

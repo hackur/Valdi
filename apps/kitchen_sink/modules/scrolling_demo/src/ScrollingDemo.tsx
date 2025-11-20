@@ -51,6 +51,11 @@ import {
   Layout,
   ScrollView,
 } from 'valdi_tsx/src/NativeTemplateElements';
+import {
+  ScrollEvent,
+  ScrollEndEvent,
+  ScrollDragEndEvent,
+} from 'valdi_tsx/src/GestureEvents';
 
 import {
   Colors,
@@ -152,7 +157,7 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
                     <layout width="100%" padding={Spacing.base}>
                       {Array.from({ length: 15 }).map((_, i) => (
                         <view
-                          key={i}
+                          key={`${i}`}
                           width="100%"
                           padding={Spacing.base}
                           margin={Spacing.xs}
@@ -203,7 +208,7 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
                     <layout flexDirection="row" padding={Spacing.base}>
                       {Array.from({ length: 10 }).map((_, i) => (
                         <view
-                          key={i}
+                          key={`${i}`}
                           width={100}
                           height={80}
                           margin={Spacing.xs}
@@ -285,7 +290,7 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
                     <layout width="100%" padding={Spacing.base}>
                       {Array.from({ length: 20 }).map((_, i) => (
                         <view
-                          key={i}
+                          key={`${i}`}
                           width="100%"
                           padding={Spacing.base}
                           margin={Spacing.xs}
@@ -336,7 +341,7 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
                     <layout flexDirection="row">
                       {Array.from({ length: this.state.totalPages }).map((_, i) => (
                         <view
-                          key={i}
+                          key={`${i}`}
                           width={300}
                           height={180}
                           backgroundColor={this.getPageColor(i)}
@@ -359,7 +364,7 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
                 <layout flexDirection="row" justifyContent="center" margin={Spacing.base}>
                   {Array.from({ length: this.state.totalPages }).map((_, i) => (
                     <view
-                      key={i}
+                      key={`${i}`}
                       width={8}
                       height={8}
                       borderRadius={4}
@@ -420,12 +425,11 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
                   <scroll
                     width="100%"
                     height={250}
-                    contentOffsetY={this.state.targetScrollY}
                   >
                     <layout width="100%" padding={Spacing.base}>
                       {Array.from({ length: 30 }).map((_, i) => (
                         <view
-                          key={i}
+                          key={`${i}`}
                           width="100%"
                           padding={Spacing.base}
                           margin={Spacing.xs}
@@ -516,7 +520,7 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
                     <layout width="100%" padding={Spacing.base}>
                       {Array.from({ length: this.state.itemCount }).map((_, i) => (
                         <view
-                          key={i}
+                          key={`${i}`}
                           width="100%"
                           padding={Spacing.base}
                           margin={Spacing.xs}
@@ -559,9 +563,9 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
 
   private handleScroll(event: ScrollEvent) {
     this.setState({
-      scrollPosition: event.offset,
-      scrollVelocity: event.velocity,
-      overscrollTension: event.overscrollTension,
+      scrollPosition: { x: event.x, y: event.y },
+      scrollVelocity: { x: event.velocityX, y: event.velocityY },
+      overscrollTension: { x: event.overscrollTensionX || 0, y: event.overscrollTensionY || 0 },
       isScrolling: true,
     });
   }
@@ -569,7 +573,7 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
   private handleScrollEnd(event: ScrollEndEvent) {
     this.setState({
       isScrolling: false,
-      scrollPosition: event.offset,
+      scrollPosition: { x: event.x, y: event.y },
     });
   }
 
@@ -585,7 +589,7 @@ export class ScrollingDemo extends StatefulComponent<ScrollingDemoViewModel, Scr
 
   private handlePageScroll(event: ScrollEvent) {
     const pageWidth = 300;
-    const currentPage = Math.round(event.offset.x / pageWidth);
+    const currentPage = Math.round(event.x / pageWidth);
 
     if (currentPage !== this.state.currentPage && currentPage >= 0 && currentPage < this.state.totalPages) {
       this.setState({ currentPage });

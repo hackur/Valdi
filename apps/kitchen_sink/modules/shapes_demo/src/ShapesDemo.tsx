@@ -38,7 +38,7 @@ import { Style } from 'valdi_core/src/Style';
 import { AnimationCurve, PresetCurveAnimationOptions } from 'valdi_core/src/AnimationOptions';
 import { NavigationController } from 'valdi_navigation/src/NavigationController';
 import { NavigationPage } from 'valdi_navigation/src/NavigationPage';
-import { GeometricPathBuilder } from 'valdi_core/src/GeometricPath';
+import { GeometricPathBuilder, GeometricPathScaleType } from 'valdi_core/src/GeometricPath';
 import {
   View,
   Label,
@@ -119,7 +119,7 @@ export class ShapesDemo extends StatefulComponent<ShapesDemoViewModel, ShapesDem
   }
 
   onRender() {
-    <view style={styles.page}>
+    return <view style={styles.page}>
       <Header
         title="Shapes & Paths"
         showBack={true}
@@ -339,7 +339,7 @@ export class ShapesDemo extends StatefulComponent<ShapesDemoViewModel, ShapesDem
                         const radians = this.toRadians(degrees);
                         return (
                           <Button
-                            key={degrees}
+                            key={`${degrees}`}
                             title={`${degrees}°`}
                             variant="outline"
                             size="small"
@@ -462,27 +462,27 @@ export class ShapesDemo extends StatefulComponent<ShapesDemoViewModel, ShapesDem
   }
 
   private createRectangle() {
-    const builder = new GeometricPathBuilder(100, 100, 'contain');
+    const builder = new GeometricPathBuilder(100, 100, GeometricPathScaleType.Contain);
     return builder.rectTo(10, 10, 80, 80).build();
   }
 
   private createRoundedRect() {
-    const builder = new GeometricPathBuilder(100, 100, 'contain');
+    const builder = new GeometricPathBuilder(100, 100, GeometricPathScaleType.Contain);
     return builder.roundRectTo(10, 10, 80, 80, 15, 15).build();
   }
 
   private createCircle() {
-    const builder = new GeometricPathBuilder(100, 100, 'contain');
+    const builder = new GeometricPathBuilder(100, 100, GeometricPathScaleType.Contain);
     return builder.ovalTo(10, 10, 80, 80).build();
   }
 
   private createTriangle() {
-    const builder = new GeometricPathBuilder(100, 100, 'contain');
+    const builder = new GeometricPathBuilder(100, 100, GeometricPathScaleType.Contain);
     return builder.moveTo(50, 10).lineTo(90, 90).lineTo(10, 90).close().build();
   }
 
   private createStar() {
-    const builder = new GeometricPathBuilder(100, 100, 'contain');
+    const builder = new GeometricPathBuilder(100, 100, GeometricPathScaleType.Contain);
     const centerX = 50;
     const centerY = 50;
     const outerRadius = 40;
@@ -503,7 +503,7 @@ export class ShapesDemo extends StatefulComponent<ShapesDemoViewModel, ShapesDem
   }
 
   private createStrokeDemo() {
-    const builder = new GeometricPathBuilder(150, 150, 'contain');
+    const builder = new GeometricPathBuilder(150, 150, GeometricPathScaleType.Contain);
     return builder
       .moveTo(20, 20)
       .lineTo(130, 50)
@@ -529,17 +529,17 @@ export class ShapesDemo extends StatefulComponent<ShapesDemoViewModel, ShapesDem
   }
 
   private createQuadCurve() {
-    const builder = new GeometricPathBuilder(200, 200, 'contain');
+    const builder = new GeometricPathBuilder(200, 200, GeometricPathScaleType.Contain);
     return builder.moveTo(20, 180).quadTo(100, 20, 180, 180).build();
   }
 
   private createCubicCurve() {
-    const builder = new GeometricPathBuilder(200, 200, 'contain');
+    const builder = new GeometricPathBuilder(200, 200, GeometricPathScaleType.Contain);
     return builder.moveTo(20, 180).cubicTo(60, 20, 140, 20, 180, 180).build();
   }
 
   private createArc() {
-    const builder = new GeometricPathBuilder(200, 200, 'contain');
+    const builder = new GeometricPathBuilder(200, 200, GeometricPathScaleType.Contain);
     return builder
       .moveTo(100, 20)
       .arcTo(100, 100, 80, -Math.PI / 2, this.state.arcAngle)
@@ -549,12 +549,12 @@ export class ShapesDemo extends StatefulComponent<ShapesDemoViewModel, ShapesDem
   // Animation shapes
 
   private createCheckmark() {
-    const builder = new GeometricPathBuilder(100, 100, 'contain');
+    const builder = new GeometricPathBuilder(100, 100, GeometricPathScaleType.Contain);
     return builder.moveTo(20, 50).lineTo(40, 70).lineTo(80, 30).build();
   }
 
   private createSpinner() {
-    const builder = new GeometricPathBuilder(100, 100, 'contain');
+    const builder = new GeometricPathBuilder(100, 100, GeometricPathScaleType.Contain);
     return builder.arcTo(50, 50, 40, 0, Math.PI * 2).build();
   }
 
