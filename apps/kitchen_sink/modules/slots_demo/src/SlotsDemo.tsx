@@ -84,6 +84,7 @@ export interface SlotsDemoViewModel {
 }
 
 interface SlotsDemoState {
+  // Counter for demonstrating interactive slot content
   clickCount: number;
 }
 

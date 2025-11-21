@@ -1,6 +1,75 @@
 /**
- * TextDemo Component
- * Demonstrates <label>, <textfield>, <textview>, and AttributedText
+ * Text Elements Demo
+ *
+ * Comprehensive demonstration of Valdi's text display and input capabilities, including
+ * labels for static text, text fields for single-line input, text views for multi-line
+ * input, and attributed text for rich formatting.
+ *
+ * **Features Demonstrated:**
+ *
+ * 1. **Label Element (<label>):**
+ *    - Display static or dynamic text
+ *    - Font sizes and weights (h1-h6, body, caption)
+ *    - Text colors and alignment
+ *    - Number of lines and truncation
+ *
+ * 2. **TextField (<textfield>):**
+ *    - Single-line text input
+ *    - Content types (text, email, number, password, phone, URL)
+ *    - Placeholder text
+ *    - Real-time value tracking with onChange
+ *    - Keyboard types based on content
+ *
+ * 3. **TextView (<textview>):**
+ *    - Multi-line text input
+ *    - Expandable text area
+ *    - Return key behavior (linereturn for newlines)
+ *    - Suitable for comments, descriptions, notes
+ *
+ * 4. **AttributedText:**
+ *    - Rich text with mixed styles
+ *    - Multiple fonts, colors, and decorations
+ *    - Built with AttributedTextBuilder
+ *    - Inline text formatting
+ *
+ * **Key Concepts:**
+ *
+ * **TextField vs TextView:**
+ * - TextField: Single-line, typically for short inputs (name, email, search)
+ * - TextView: Multi-line, for longer content (bio, comments, messages)
+ * - Both support contentType for keyboard customization
+ *
+ * **Content Types:**
+ * - text: Default keyboard
+ * - email: Email keyboard with @ and .
+ * - number: Numeric keyboard
+ * - password: Secure text entry (hidden characters)
+ * - phone: Phone number keyboard
+ * - URL: URL keyboard with / and .com
+ *
+ * **Styling Limitations:**
+ * TextField and TextView have limited styling compared to View:
+ * - ❌ No padding property (wrap in View for padding)
+ * - ❌ No borderWidth/borderRadius (style container instead)
+ * - ✅ Can set backgroundColor, font, color
+ * - ✅ Width and height work normally
+ *
+ * **AttributedText Usage:**
+ * ```typescript
+ * const attributed = new AttributedTextBuilder()
+ *   .append('Bold text', { font: Fonts.h3 })
+ *   .append(' normal text', { font: Fonts.body })
+ *   .append(' colored', { color: Colors.primary })
+ *   .toAttributedText();
+ * ```
+ *
+ * **Event Handling:**
+ * - onChange: Fires on every text change, receives EditTextEvent
+ * - onWillChange: Pre-change validation/sanitization
+ * - onReturn: User presses return/enter key
+ * - Use event.text (not event.value) to get the text
+ *
+ * @see {@link https://github.com/valdi-labs/valdi|Valdi Framework Documentation}
  */
 
 import { StatefulComponent } from 'valdi_core/src/Component';
@@ -28,7 +97,10 @@ export interface TextDemoViewModel {
 }
 
 interface TextDemoState {
+  // TextField input value
   textFieldValue: string;
+
+  // TextView (multi-line) input value
   textViewValue: string;
 }
 
@@ -319,6 +391,14 @@ export class TextDemo extends StatefulComponent<TextDemoViewModel, TextDemoState
     </view>;
   }
 
+  // ============================================================================
+  // Helper Methods - Text Rendering
+  // ============================================================================
+
+  /**
+   * Renders an AttributedText example with mixed formatting
+   * Demonstrates how to use AttributedTextBuilder for rich text
+   */
   private renderAttributedTextExample() {
     // Build rich text with multiple styles
     const builder = new AttributedTextBuilder();

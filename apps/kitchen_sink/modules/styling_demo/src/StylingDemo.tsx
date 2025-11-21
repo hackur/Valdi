@@ -531,8 +531,14 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
     </view>;
   }
 
-  // Gradient helpers
+  // ============================================================================
+  // Gradient Helper Methods
+  // ============================================================================
 
+  /**
+   * Returns a gradient string for the specified preset type
+   * Supports: sunset, ocean, forest, purple
+   */
   private getGradient(type: string): string {
     const gradients: { [key: string]: string } = {
       sunset: 'linear-gradient(#FF6B6B, #FFD93D, #6BCF7F)',
@@ -544,8 +550,14 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
     return gradients[type] || gradients.sunset;
   }
 
-  // Shadow helpers
+  // ============================================================================
+  // Shadow Helper Methods
+  // ============================================================================
 
+  /**
+   * Returns box shadow for Material Design elevation levels (1-5)
+   * Higher elevations create deeper, more prominent shadows
+   */
   private getShadowForElevation(elevation: number): string {
     const shadows = [
       '0 1 3 rgba(0, 0, 0, 0.12)', // Elevation 1
@@ -558,8 +570,13 @@ export class StylingDemo extends StatefulComponent<StylingDemoViewModel, Styling
     return shadows[elevation - 1] || shadows[0];
   }
 
-  // Animation helpers
+  // ============================================================================
+  // Animation Helper Methods
+  // ============================================================================
 
+  /**
+   * Animates the fade effect by toggling visibility state with smooth transition
+   */
   private animateFade(show: boolean) {
     const options: PresetCurveAnimationOptions = {
       duration: 0.4,

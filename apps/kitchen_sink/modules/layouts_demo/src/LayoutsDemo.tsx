@@ -1,6 +1,64 @@
 /**
- * LayoutsDemo Component
- * Demonstrates <layout>, <view>, and flexbox positioning
+ * Layouts & Flexbox Demo
+ *
+ * Comprehensive demonstration of Valdi's layout system using the <layout> and <view> elements
+ * with flexbox positioning. Shows the fundamental building blocks for creating responsive,
+ * flexible user interfaces.
+ *
+ * **Features Demonstrated:**
+ *
+ * 1. **Layout vs View:**
+ *    - <layout> - Memory-only container (no native view created)
+ *    - <view> - Creates native UIView/View with full styling support
+ *    - Performance implications and when to use each
+ *
+ * 2. **Flexbox Direction:**
+ *    - row - Horizontal layout (left to right)
+ *    - column - Vertical layout (top to bottom)
+ *    - row-reverse - Horizontal reversed (right to left)
+ *    - column-reverse - Vertical reversed (bottom to top)
+ *
+ * 3. **Justify Content (Main Axis):**
+ *    - flex-start - Items packed at start
+ *    - center - Items centered
+ *    - flex-end - Items packed at end
+ *    - space-between - Items evenly distributed, first at start, last at end
+ *    - space-around - Items evenly distributed with equal space around them
+ *    - space-evenly - Items distributed with equal space between them
+ *
+ * 4. **Align Items (Cross Axis):**
+ *    - flex-start - Items aligned at start of cross axis
+ *    - center - Items centered on cross axis
+ *    - flex-end - Items aligned at end of cross axis
+ *    - stretch - Items stretched to fill cross axis
+ *
+ * 5. **Flex Grow/Shrink:**
+ *    - flexGrow - How much an item should grow relative to siblings
+ *    - flexShrink - How much an item should shrink when space is limited
+ *
+ * **Key Concepts:**
+ *
+ * **Main Axis vs Cross Axis:**
+ * - In flexDirection="row", main axis is horizontal, cross axis is vertical
+ * - In flexDirection="column", main axis is vertical, cross axis is horizontal
+ * - justifyContent controls main axis, alignItems controls cross axis
+ *
+ * **Performance Tips:**
+ * - Use <layout> when you only need positioning (no visual styling)
+ * - Use <view> when you need backgroundColor, borders, shadows, etc.
+ * - <layout> is more performant as it doesn't create a native view
+ *
+ * **Common Patterns:**
+ * - Center content: justifyContent="center" alignItems="center"
+ * - Sidebar layout: flexDirection="row" with fixed + flexGrow children
+ * - Header/Content/Footer: flexDirection="column" with fixed + flexGrow sections
+ *
+ * **Valdi vs CSS Flexbox:**
+ * - Most CSS flexbox properties work the same way
+ * - No 'gap' property - use margins on children instead
+ * - Use 'flexGrow' instead of 'flex' shorthand
+ *
+ * @see {@link https://github.com/valdi-labs/valdi|Valdi Framework Documentation}
  */
 
 import { StatefulComponent } from 'valdi_core/src/Component';
@@ -225,7 +283,13 @@ export class LayoutsDemo extends NavigationPageComponent<LayoutsDemoViewModel> {
     </view>;
   }
 
-  // Helper to render colored boxes
+  // ============================================================================
+  // Helper Methods - Visual Element Rendering
+  // ============================================================================
+
+  /**
+   * Renders a colored box with text for layout demonstrations
+   */
   private renderBox(text: string, color: string) {
     <view
       backgroundColor={color}
@@ -239,7 +303,9 @@ export class LayoutsDemo extends NavigationPageComponent<LayoutsDemoViewModel> {
     </view>;
   }
 
-  // Helper to render flex boxes with flex property
+  /**
+   * Renders a flex box with specified flexGrow value
+   */
   private renderFlexBox(text: string, color: string, flex: number) {
     <view
       backgroundColor={color}
@@ -253,7 +319,9 @@ export class LayoutsDemo extends NavigationPageComponent<LayoutsDemoViewModel> {
     </view>;
   }
 
-  // Helper to render justify-content examples
+  /**
+   * Renders a justify-content example with label and boxes
+   */
   private renderJustifyExample(label: string, value: any) {
     <layout width="100%">
       <label

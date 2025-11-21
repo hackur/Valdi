@@ -119,7 +119,7 @@ export class ShapesDemo extends StatefulComponent<ShapesDemoViewModel, ShapesDem
   }
 
   onRender() {
-    return <view style={styles.page}>
+    <view style={styles.page}>
       <Header
         title="Shapes & Paths"
         showBack={true}

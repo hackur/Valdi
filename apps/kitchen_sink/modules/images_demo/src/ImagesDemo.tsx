@@ -416,8 +416,13 @@ export class ImagesDemo extends StatefulComponent<ImagesDemoViewModel, ImagesDem
     </view>;
   }
 
-  // Helper methods
+  // ============================================================================
+  // Helper Methods
+  // ============================================================================
 
+  /**
+   * Returns a user-friendly description of the specified ObjectFit mode
+   */
   private getObjectFitDescription(mode: 'fill' | 'contain' | 'cover' | 'none'): string {
     const descriptions = {
       fill: 'Stretch to fill bounds (may distort aspect ratio)',
@@ -428,6 +433,9 @@ export class ImagesDemo extends StatefulComponent<ImagesDemoViewModel, ImagesDem
     return descriptions[mode];
   }
 
+  /**
+   * Converts radians to degrees for display purposes
+   */
   private toDegrees(radians: number): number {
     return (radians * 180) / Math.PI;
   }
